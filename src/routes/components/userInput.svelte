@@ -5,7 +5,7 @@
 
 
 <div class="input-container">
-    <input type="text" class="user_input" placeholder="Skriv meldingen din her...">
+    <textarea class="user_input" name="" id="" placeholder="Skriv meldingen din her..."></textarea> 
     <button class="sendBtn" title="Send melding" type="button">↑</button>
 </div>
 
@@ -18,7 +18,7 @@
     border-width: 1px;
     border-color: var(--color-stein-50);
     border-radius: 20px;
-    background-color: var(--color-himmel-10);
+    background-color: #363636;
     width: 50%;
     max-width: 50%;
     height: 50px;
@@ -41,8 +41,18 @@
     pointer-events: auto;
     z-index: 10000;
     position: relative;
-    background-color: white;
+    background-color: #545454;
+    color: white;
     transition: box-shadow 0.3s;
+    height: 20px;
+
+
+    resize: none;            /* lås størrelsen (valgfritt) */
+    overflow-y: auto;        /* scroll når høyden nås */
+    overflow-x: hidden;      /* ingen horisontal scroll */
+}
+.user_input::placeholder {
+    color: white;
 }
 .user_input:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -57,11 +67,12 @@
     border-width: 1px;
     margin-left: 8px;
     margin-right: 8px;
-    background-color: var(--color-gran-30);
+    color: white;
+    background-color: #545454;
     transition: background-color 0.3s;
 }
     .sendBtn:hover {
-        background-color: var(--color-gran-50);
+        background-color: #6b6b6b;
 }
 
 @media (min-width: 300px) and (max-width: 600px) {

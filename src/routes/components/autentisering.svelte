@@ -68,9 +68,10 @@
         padding: 20px;
         border: 1px solid #ccc;
         border-radius: 5px;
-        background-color: #f9f9f9;
+        background-color: #3c3c3c;
         position: relative;
         z-index: 10001;
+        color: white;
     }
 
 
@@ -85,25 +86,27 @@
     }
 
     .innlogin_container input {
-        width: 100%;
+        width: 95%;
         padding: 8px;
         margin-bottom: 15px;
         border: 1px solid #ccc;
         border-radius: 4px;
+        
     }
 
     .innlogin_container button {
         width: 100%;
         padding: 10px;
-        background-color: #4CAF50;
+        background-color: #545454;
         color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s;
     }
 
     .innlogin_container button:hover {
-        background-color: #45a049;
+        background-color: #383838;
     }
     
  

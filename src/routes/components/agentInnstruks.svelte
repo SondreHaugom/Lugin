@@ -48,7 +48,7 @@
         }
         
         .agent_config.open {
-            background-color: var(--color-himmel-10);
+            background-color: #545454;
             border: 1px solid var(--color-stein-50);
             border-radius: 10px;
             padding: 15px;
@@ -83,8 +83,8 @@
         
         .config-save {
             padding: 8px 16px;
-            background-color: var(--color-gran-30);
-            color: black;
+            background-color: #313131;
+            color: white;
             border: 1px solid var(--color-stein-50);
             border-radius: 5px;
             font-size: 14px;
@@ -94,7 +94,7 @@
         }
         
         .config-save:hover {
-            background-color: var(--color-gran-50);
+            background-color: #161616;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         }
         .config-toggle {
@@ -107,6 +107,8 @@
         .config-toggle svg {
             width: 24px;
             height: 24px;
+            border-radius: 5px;
+            background-color: white;
             display: block;
         }
 

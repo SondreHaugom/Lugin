@@ -197,32 +197,17 @@
 
 <main>
     <img class="logo" title="Lugin" src="/src/lib/logo/artificial intelligence - Logo2.png" alt="">
-    <button class="sidebar-btn" title="Åpne/lukk meny" on:click={sidebar} type="button"><svg id="Layer_1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="m0 3v18c0 1.654 1.346 3 3 3h8v-24h-8c-1.654 0-3 1.346-3 3zm9 19h-6c-.551 0-1-.448-1-1v-18c0-.552.449-1 1-1h6zm12-22h-8v24h8c1.654 0 3-1.346 3-3v-18c0-1.654-1.346-3-3-3zm1 21c0 .552-.449 1-1 1h-6v-20h6c.551 0 1 .448 1 1z"/></svg></button>
+    <button class="sidebar-btn" title="Åpne/lukk meny" on:click={sidebar} type="button">☰</button>
     <button class="resetBtn" title="Ny Samtale" type="button">⟳</button>
     <div class="sidebar" class:open={isMenuOpen}>
         <h1>
             Lugin
         </h1>
         <select title="Velg agent" class="select-btn" name="" id="">
-            <option value="Openai">OpenAI</option>
+            <option value="Openai">ChatGPT</option>
 
         </select>
-   <!-- Pråver å legge inn for samtale historikk-->
-
-     <!-- 
-        <div class="convHistory">
-            <ul>
-                {#each Object.entries(agentResponseIDHistory) as [agent, responseIds]}
-                    <li><strong>{agent}:</strong></li>
-                    {#each responseIds as responseId}
-                        <li style="margin-left: 10px;">{responseId}</li>
-                    {/each}
-                {/each}
-            </ul>
-        </div>
-     -->
         <div class="userData">
-            
         </div>
     </div>
 
@@ -230,7 +215,6 @@
         <Autentisering onLogin={handleSuccessfulLogin} />
     {:else}
         <div class="chatbot_wrapper" class:shifted={isMenuOpen}>
-            <div class="current-agent">{currentAgent}</div>
             
             {#if currentAgent === "Openai"}
                 <AgentInnstruks bind:systemInstruks />
@@ -255,28 +239,18 @@
 
 
 main {
-    background-color: var(--color-fjord-10);
+    background-color: #272727;
     width: 100%;
     height: 100vh;
     overflow-x: hidden;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 h1 {
     text-align: center;
     font-family: Helvetica, Arial, sans-serif;
     margin-top: 10px;
     margin-bottom: 20px;
-}
-h2 {
-    padding: 10px;
-    font-family: Helvetica, Arial, sans-serif;
-}
-.convHistory {
-    background-color: var(--color-gran-30);
-    border-radius: 10px;
-    padding: 10px;
-    height: 500px;
-    margin-top: 60px;
-    margin-bottom: 20px;
+    color: white;
 }
 .sidebar {
     position: fixed;
@@ -300,16 +274,12 @@ h2 {
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    background-color: var( --color-gran-30);
-    color: black;
+    background-color: #545454;
+    color: white;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-.sidebar-btn svg {
-    width: 10px;
-    height: 20px;
 }
 .logo {
     position: fixed;
@@ -322,7 +292,7 @@ h2 {
 
 }
 .sidebar-btn:hover {
-    background-color: var( --color-gran-50);
+    background-color: #383838;
 }
 .resetBtn {
     position: fixed;
@@ -333,15 +303,15 @@ h2 {
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    background-color: var( --color-gran-30);
-    color: black;
+    background-color: #545454;
+    color: white;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 .resetBtn:hover {
-    background-color: var( --color-gran-50);
+    background-color: #383838;
 }
 .select-btn {
     width: 100%;
@@ -351,7 +321,8 @@ h2 {
     border-radius: 5px;
     border: 1px solid #ccc;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    background-color: var(--color-gran-30);
+    background-color: #545454;
+    color: white;
 }
 
 .chatbox {
@@ -377,11 +348,11 @@ h2 {
     border-radius: 10px;
     border-style: solid;
     border-width: 1px;
-    border-color: var(--color-stein-50);
+    border-color: #333;
     margin-left: 50px;
     display: block;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: white;
+    background-color:#3c3c3c;
 }
 
 .chatbot_wrapper.shifted {
@@ -395,47 +366,32 @@ h2 {
         margin: 0;
 }
     :global(.user_message) {
-        background-color: var(--color-himmel-10);
-        text-align: left;
-        color: black;
+        background-color: #545454;
+        color: white;
         padding: 10px;
         border-radius: 10px;
         border-bottom-right-radius: 1px;
         margin: 10px;
-        width: auto;
-        max-width: 40%;
-        align-self: flex-end;
-        display: block;
-        margin-left: auto;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+
+        /* Viktig */
+        display: inline-block;     /* gjør at bredden følger innholdet */
+        max-width: 40%;            /* fast “tak” på hvor stor den kan bli */
+        width: fit-content;        /* lar den krympe til innhold (støttes bra) */
+        margin-left: 70%;         /* skyv den til høyre */
+        text-align: left;
+        white-space: normal;       /* sørg for at den kan wrappe */
+        overflow-wrap: break-word; /* bryt lange ord/lenker */
+    }
     :global(.bot_message) {
         text-align: left;
-        color: black;
+        color: white;
         padding: 10px;
         margin: 10px;
         width: auto;
         max-width: 73%;
         align-self: flex-start;
         display: block;
-}
-
-    .current-agent {
-        background-color: var(  --color-himmel-10);
-        width: 25%;
-        text-align: center;
-        margin-top: 10px;
-        font-size: 17px;
-        border-radius: 5px;
-        border-top-left-radius: 1px;
-        border-top-right-radius: 1px;
-        border-style: solid;
-        border-width: 1px;
-        border-color: #333;
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -467,7 +423,7 @@ h2 {
 @media (min-width: 601px) and (max-width: 1200px) {
             .chatbox {
             left: 21%;
-            max-height: 90% !important;
+            max-height: 80% !important;
             max-width: 80% !important;
             overflow-y: auto;
 
@@ -484,13 +440,14 @@ h2 {
             width: 50%;
         }
          :global(.user_message) {
-            font-size: 12px;
+            font-size: 15px;
             margin-left: 50%;
         }  
         :global(.bot_message) {
             position: static;
             right: 80px;
             top: 80px;
+            font-size: 15px;
 
     
         } 
@@ -512,5 +469,6 @@ h2 {
             margin-left: 200px;
             width: calc(99.2% - 200px);
         }
+        
 }
 </style>
