@@ -64,4 +64,27 @@
         background-color: var(--color-gran-50);
 }
 
+@media (min-width: 300px) and (max-width: 600px) {
+    .input-container {
+        left: 5%;
+        height: 40px;
+        width: 90%;
+        max-width: 90%;
+        border-radius: 8px;
+    }
+
+    .user_input {
+        width: 85%;
+        height: 13px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+    .sendBtn {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+
+
 </style>

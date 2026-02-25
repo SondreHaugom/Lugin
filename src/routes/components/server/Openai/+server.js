@@ -23,8 +23,8 @@ export async function POST(request) {
         const { message, previousResponseId, systemInstruks } = await request.request.json();
 
         const response = await client.responses.create({
-            model: "gpt-4o-mini",
-            instructions: systemInstruks || "Du er en hjelpsom assistent og svar altid med, [Standar innstruks]", 
+            model: "gpt-5-nano-2025-08-07",
+            instructions: systemInstruks || "Du er en hjelpsom assistent med dine svar skal du altid bruke markdown format.", 
             input: [
                 {
                     role: "user",

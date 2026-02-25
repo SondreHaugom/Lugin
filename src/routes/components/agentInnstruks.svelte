@@ -43,6 +43,7 @@
             top: 9px;
             left: 0.5%;
             width: 280px;
+            z-index: 10000;
             transition: all 0.3s ease;
         }
         
@@ -55,21 +56,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         
-        .config-select {
-            width: 100%;
-            padding: 8px 12px;
-            background-color: var(--color-gran-30);
-            border: 1px solid var(--color-stein-50);
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            font-size: 14px;
-            transition: border-color 0.2s;
-        }
-        
-        .config-select:focus {
-            outline: none;
-            border-color: var(--color-himmel-10);
-        }
+
         .config-input {
             width: 100%;
             max-height: 80px;        /* juster maks-høyde som du vil */
@@ -138,4 +125,36 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        @media (min-width: 300px) and (max-width: 600px) {
+            .agent_config {
+                left: 5%;
+                width: 90%;
+            }
+            .agent_config.open {
+                width: 82%;
+                
+            }
+            .popup {
+                left: 50%;
+                top: 20px;
+                transform: translateX(-50%);
+            }
+        }
+        @media (min-width: 601px) and (max-width: 1200px) {
+            .agent_config {
+                left: 5%;
+                width: 90%;
+            }
+            .agent_config.open {
+                width: 82%;
+                
+            }
+            .popup {
+                left: 50%;
+                top: 20px;
+                transform: translateX(-50%);
+            }
+        }
+
     </style>

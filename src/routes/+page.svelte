@@ -46,10 +46,27 @@
 
 
     }
-    
 
-    // funksjo|n for å opprette og legge til meldinger i chatboksen
-    const createChatMessage = (message, className ) => {
+    // funksjon for å streame tekst
+    const streamText = (element, text, speed = 2) => {
+        const markdownText = md.render(addKaTexToMathStrings(wrapInPreCode(text)));
+        // definerer en indeks for å holde styr på posisjonen i teksten
+        let index = 0;
+        // tømmer innholdet i elementet før streaming
+        element.innerHTML = '';
+
+        const interval = setInterval(() => {
+            element.innerHTML = markdownText.substring(0, index + 1);
+            index++;
+            if (index >= markdownText.length) {
+                clearInterval(interval);
+            }
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }, speed);
+    };
+
+    // funksjon for å opprette og legge til meldinger i chatboksen
+    const createChatMessage = (message, className, isStreaming = false) => {
         // oppretter en listeelement for meldingen
         let chatLi = document.createElement("li");
 
@@ -71,15 +88,17 @@
         // henter meldingsdiven
         const messageDiv = chatLi.querySelector(className === 'chat_incoming' ? '.bot_message' : '.user_message');
 
-        // setter meldingsinnholdet
-        if (className === 'chat_incoming') {
+        if (isStreaming && className === 'chat_incoming') {
+            streamText(messageDiv, message);
+        } else if (className === 'chat_incoming') {
             // bruker markdown-funksjonen for å formatere botens svar
             messageDiv.innerHTML = md.render(addKaTexToMathStrings(wrapInPreCode(message)));
         } else {
             messageDiv.textContent = message;
         }
-        // legger til listeelementet i chatboksen
-        chatbox.appendChild(chatLi);
+
+         // ruller chatboksen til bunnen for å vise den nyeste meldingen
+         chatbox.scrollTop = chatbox.scrollHeight;
     }
 
 
@@ -420,76 +439,42 @@ h2 {
 }
 
 
-    @media (min-width: 300px) and (max-width: 600px) {
+@media (min-width: 300px) and (max-width: 600px) {
+        .chatbot_wrapper {
+                width: 86%;
+        }
         .chatbox {
-            left: 21%;
+            left: 1%;
             max-height: 80%;
-            max-width: 70%;
+            width: 86% !important;
+            max-width: 86% !important;
             overflow-y: auto;
 
-
         }
-        .input-container {
-            left: 5%;
-            height: 40px;
-            width: 90%;
-            max-width: 90%;
-        }
-        .user_input {
-            width: 85%;
-            right: 3px;
-            font-size: 14px;
-        }
-        .chatbot_wrapper {
-            width: 85%;
-        }
-        .chatbot_wrapper.shifted {
-            margin-left: 510px;
-            width: calc(99% - 200px);
-        }
-        .current-agent {
-            width: 50%;
-        }
-        .sendBtn {
-            width: 30px;
-            height: 30px; 
-            margin-right: 2px;         
-        }
-         :global(.user_message) {
+        :global(.user_message) {
             font-size: 12px;
             margin-left: 50%;
         }  
         :global(.bot_message) {
-            position: absolute;
-            right: 80px;
-            top: 80px;
+            font-size: 12px;
+            margin: 10px 10px 10px 0px !important; /* top right bottom left */
+            padding-left: 0px !important;
+            position: static; /* sikrer at den ikke er absolute */
+}
 
-    
-        } 
 }
 
 @media (min-width: 601px) and (max-width: 1200px) {
             .chatbox {
             left: 21%;
-            max-height: 80%;
-            max-width: 70%;
+            max-height: 90% !important;
+            max-width: 80% !important;
             overflow-y: auto;
 
 
         }
-        .input-container {
-            left: 5%;
-            height: 40px;
-            width: 90%;
-            max-width: 90%;
-        }
-        .user_input {
-            width: 85%;
-            right: 3px;
-            font-size: 14px;
-        }
         .chatbot_wrapper {
-            width: 92%;
+            width: 92.2%;
         }
         .chatbot_wrapper.shifted {
             margin-left: 200px;
@@ -498,17 +483,12 @@ h2 {
         .current-agent {
             width: 50%;
         }
-        .sendBtn {
-            width: 30px;
-            height: 30px; 
-            margin-right: 2px;         
-        }
          :global(.user_message) {
             font-size: 12px;
             margin-left: 50%;
         }  
         :global(.bot_message) {
-            position: absolute;
+            position: static;
             right: 80px;
             top: 80px;
 
@@ -519,18 +499,18 @@ h2 {
 @media (min-width: 1200px) and (max-width: 1800px) {
         .chatbox {
             left: 23%;
-            max-height: 80%;
+            max-height: 90%;
             max-width: 60%;
             overflow-y: auto;
 
 
         }
         .chatbot_wrapper {
-            width: 96.2%;
+            width: 95.95%;
         }
         .chatbot_wrapper.shifted {
             margin-left: 200px;
-            width: calc(99% - 200px);
+            width: calc(99.2% - 200px);
         }
 }
 </style>
