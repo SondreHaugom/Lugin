@@ -3,13 +3,14 @@ export const selectAgent = async (message, agentType, systemInstruks = "", previ
     // Bestem endpoint basert på agentType
     let endpoint = '/components/server/Openai';
 
+
     // Sjekk at agentType er gyldig
     if (!agentType) {
         console.error('Agent type is not specified.');
         return {response: 'Error: Agent type is not specified.', responseId: null};
     }
 
-    console.log(`Sending message to ${agentType} endpoint:`);
+    console.log(`Sending message to ${agentType} endpoint: ${endpoint}`);
 
     // Sender og motar melding til riktig endpoint basert på agentType
     const response = await fetch(endpoint, {
@@ -23,6 +24,7 @@ export const selectAgent = async (message, agentType, systemInstruks = "", previ
             previousResponseId: previousResponseId
         })
     });
+
     // Oppretter en payload variabel for å håndtere både OpenAI og MistralAI svar, og returnerer både svaret og response ID
     const payload = await response.json();
 

@@ -7,7 +7,9 @@
   import '$lib/global.css';
   import AgentInnstruks from './components/agentInnstruks.svelte';
   import UserInput from './components/userInput.svelte';
-  import Autentisering from "./components/autentisering.svelte";    
+  import Autentisering from "./components/autentisering.svelte";   
+  
+
     // deklarerer globale variabler
     let chatbox, userInput, sendBtn, resetBtn, toggleBtn, selectBtn;
     let currentAgent = "Openai"; // Standard agent
@@ -24,11 +26,13 @@
     // Store response ID per agent
     let agentResponseIds = {
         'Openai': null,
+        'Ollama': null
 
     };
 
     let agentResponseIDHistory = {
         'Openai': [],
+        'Ollama': [],
 
     };
 
@@ -125,13 +129,13 @@
             agentResponseIDHistory[selectedAgent].push(result.responseId);
             console.log("Response ID for " + selectedAgent + ": " + result.responseId);
             console.log("Response ID History for " + selectedAgent + ": " + agentResponseIDHistory[selectedAgent]);
+        
             
             
             createChatMessage(result.response, 'chat_incoming', true);
 
         });
-
-
+        
         // tømmer inputfeltet etter sending
         userInput.value = "";
     }
@@ -158,11 +162,11 @@
             if (userChoice) {
                 agentResponseIds = {
                     'Openai': null,
-                    'Mistralai': null
+                    'Ollama': null
             };
                 agentResponseIDHistory = {
                     'Openai': [],
-                    'Mistralai': []
+                    'Ollama': []
             };
             chatbox.innerHTML = '';
                 alert("Ny samtale startet!");
@@ -205,7 +209,6 @@
         </h1>
         <select title="Velg agent" class="select-btn" name="" id="">
             <option value="Openai">ChatGPT</option>
-            <option value="gpt-oss-120b">GPT-OSS-120b</option>
         </select>
         <div class="userData">
         </div>
