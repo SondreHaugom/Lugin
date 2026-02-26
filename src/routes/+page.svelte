@@ -205,7 +205,7 @@
         </h1>
         <select title="Velg agent" class="select-btn" name="" id="">
             <option value="Openai">ChatGPT</option>
-
+            <option value="gpt-oss-120b">GPT-OSS-120b</option>
         </select>
         <div class="userData">
         </div>
@@ -243,11 +243,10 @@ main {
     width: 100%;
     height: 100vh;
     overflow-x: hidden;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, Apple Color Emoji, Segoe UI Emoji;
 }
 h1 {
     text-align: center;
-    font-family: Helvetica, Arial, sans-serif;
     margin-top: 10px;
     margin-bottom: 20px;
     color: white;
