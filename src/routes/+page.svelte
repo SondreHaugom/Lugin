@@ -338,6 +338,7 @@ h1 {
     z-index: 2000;
 
 
+
 }
 
 .chatbot_wrapper {
@@ -373,17 +374,17 @@ h1 {
         padding: 10px;
         border-radius: 10px;
         border-bottom-right-radius: 1px;
-        margin: 10px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-        /* Viktig */
-        display: inline-block;     /* gjør at bredden følger innholdet */
-        max-width: 40%;            /* fast “tak” på hvor stor den kan bli */
-        width: fit-content;        /* lar den krympe til innhold (støttes bra) */
-        margin-left: 70%;         /* skyv den til høyre */
+        display: table;        /* krymper til innhold, men kan auto-margins */
+        width: fit-content;
+        max-width: 40%;
+
+        margin: 10px 10px 10px auto;
+
         text-align: left;
-        white-space: normal;       /* sørg for at den kan wrappe */
-        overflow-wrap: break-word; /* bryt lange ord/lenker */
+        white-space: normal;
+        overflow-wrap: break-word;
     }
     :global(.bot_message) {
         text-align: left;
