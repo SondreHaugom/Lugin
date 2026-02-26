@@ -1,11 +1,10 @@
 ###
  Lugin Halvårsvurdering 
 
-En prototype av en chattetjeneste for alle ansatte i Telemark Fylkeskommune. 
+Min helt egen KI-tjeneste, basert på min halvårsvurdering. 
 
 ![SvelteKit](https://img.shields.io/badge/SvelteKit-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
-![Mistral AI](https://img.shields.io/badge/Mistral%20AI-4F8CBF?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjZmZmIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgMThjLTQuNDIgMC04LTMuNTgtOC04czMuNTgtOCA4LTggOCAzLjU4IDggOC0zLjU4IDgtOCA4eiIvPjwvc3ZnPg==&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
 
@@ -32,17 +31,13 @@ En prototype av en chattetjeneste for alle ansatte i Telemark Fylkeskommune.
 
 ### Funksjoner
 - **Moderne chatgrensesnitt** med Svelte
-- **Multi-agent-system** mulighet for flere agenter
- - **Mistral Large 3** (Mistral) Generell agent for Lugin
- - **GPT-5.1** (OpenAi) Koblet opp OpenAi som valgmulighet
- - **FagAssistenten** Spesialisert agent for faglige spørsmål
- - **OCR** Optisk tegngjenkjenning for tekstutdrag fra bilder
-- **Bytte modell underveis** Kan bytte mellom agentene under samtalen
+- ** ChatGPT - gpt-4.1-nano** (Språkmodellen som kjører/flere vil komme)
 - **Responsivt design** med gradient-bakgrunner og moderne styling
 - **Modulær arkitektur** med separert agent-logikk og komponenter
 - **Tastaturnavigasjon** (Enter for å sende)
 - **Systemflyt-visualisering** med integrert flytdiagram
 - **Modulære komponenter** (UserInput, AgentInstruks, OCR)
+-  **Streaming av respons** (Svar fra botten kommer delsvis underveis)
 
 
 
@@ -50,8 +45,7 @@ En prototype av en chattetjeneste for alle ansatte i Telemark Fylkeskommune.
 
 ### Om prosjektet
 
-Dette er en prototype av en chatbot som er satt opp med et multi agent arkitektur bygget med SvelteKit. Systemet lar brukeren velge mellom to ulige agenter som gir bruker mer valg muligheter etter ønsket leverandør. Man kan bytte mellom agenter underveis, men agenten vil ikke kunne kjenne igjen hva andre agenters respons. Dette er en Halvårsoppgave ettersom at jeg har vert lærling i over 6 måender. MIstral agenten skal ettervert få tilgang til funksjonskall for å gjøre det mulig for agenten til å benytte seg av innformasjon utenfor dens treningsdata. 
-
+Dette er min egen KI-tjeneste basert på en avansert språkmodell (en agent). Systemet er bygget med en multi-agent arkitektur, utviklet med SvelteKit, og inkluderer for øyeblikket en spesifikk agent – Mistral-agenten. Flere agenter vil bli lagt til etter hvert for å gi brukeren flere valg og muligheter, avhengig av ønsket leverandør. Systemet gjør det mulig å skifte mellom de ulike agentene underveis i bruk, selv om hver agent vil operere uavhengig av de andre og ikke kjenne til responsene deres. Dette er en ferdigstilt løsning, utviklet som en del av en halvårsvurdering etter å ha vært lærling i over seks måneder. På sikt planlegger jeg å utstyre agenten med funksjonskall for å muliggjøre tilgang til ekstern informasjon, slik at den kan benytte seg av oppdaterte data utenfor sitt treningsgrunnlag.
 
 
 ### Prosjektstruktur
@@ -69,10 +63,7 @@ Lugin-Halvrsvurdering/
 │           ├── agentInnstruks.svelte    # Systeminstruksjoner
 │           ├── userInput.svelte         # Brukerinput komponent
 │           └── server/
-│               ├── Mistralai/+server.js    # Mistral AI backend
 │               ├── Openai/+server.js       # OpenAI backend  
-│               ├── FagAssistenten/+server.js # Fagassistent backend
-│               └── ocs/OCR.svelte          # OCR funksjonalitet
 ├── System flyt.png             # Systemflyt diagram
 ├── package.json
 └── README.md
@@ -132,7 +123,6 @@ Se det komplette flytdiagrammet for prosjektet:
 ### Forklaring av API kall
 For dette projektet av vi to forskjellige agent leverandører:
 - **OpenAI**
-- **Mistral**
 
 Hver leverandør tilbyr et API som vi bruker for å kommunisere med deres språkmodeller. Når en bruker sender en prompt til den valgte modellen, sendes denne forespørselen til det aktuelle API-et (OpenAI eller Mistral). API-et videresender så forespørselen til språkmodellen, som genererer et svar (respons). Dette svaret sendes tilbake via API-et og vises til brukeren.
 
