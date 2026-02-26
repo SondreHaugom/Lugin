@@ -24,7 +24,7 @@ export async function POST(request) {
 
         const response = await client.responses.create({
             model: "gpt-4.1-nano",
-            instructions: systemInstruks || "Du er en hjelpsom assistent med dine svar skal du altid bruke markdown format.", 
+            instructions: systemInstruks || "Du er en hjelpsom assistent som svarer på generelle spørsmål. Du skal være kortfattet og presis i dine svar. Hvis du ikke vet svaret, si at du ikke vet det. Ikke gi unødvendige detaljer.", 
             input: [
                 {
                     role: "user",
