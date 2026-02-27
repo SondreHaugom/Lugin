@@ -444,9 +444,6 @@ h1 {
             margin-left: 200px;
             width: calc(99% - 200px);
         }
-        .current-agent {
-            width: 50%;
-        }
          :global(.user_message) {
             font-size: 15px;
             margin-left: 50%;
