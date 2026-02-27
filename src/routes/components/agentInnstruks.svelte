@@ -48,7 +48,18 @@
         }
         
         .agent_config.open {
-            background-color: #545454;
+            /* Enkel glassstil */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+    
+            border: 1px solid rgba(255, 255, 255, 0.15);
+    
+            color: white;
+            font-size: 16px;
+    
+            /* Enkel skygge */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);   
             border: 1px solid var(--color-stein-50);
             border-radius: 10px;
             padding: 15px;

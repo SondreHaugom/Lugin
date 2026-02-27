@@ -18,7 +18,18 @@
     border-width: 1px;
     border-color: var(--color-stein-50);
     border-radius: 20px;
-    background-color: #363636;
+        /* Enkel glassstil */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    
+    color: white;
+    font-size: 16px;
+    
+    /* Enkel skygge */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     width: 50%;
     max-width: 50%;
     height: 50px;
@@ -41,8 +52,18 @@
     pointer-events: auto;
     z-index: 10000;
     position: relative;
-    background-color: #545454;
+        /* Enkel glassstil */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    
     color: white;
+    font-size: 16px;
+    
+    /* Enkel skygge */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.3s;
     height: 20px;
 
@@ -67,8 +88,18 @@
     border-width: 1px;
     margin-left: 8px;
     margin-right: 8px;
+        /* Enkel glassstil */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    
     color: white;
-    background-color: #545454;
+    font-size: 16px;
+    
+    /* Enkel skygge */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s;
 }
     .sendBtn:hover {
