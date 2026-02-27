@@ -8,6 +8,7 @@
   import AgentInnstruks from './components/agentInnstruks.svelte';
   import UserInput from './components/userInput.svelte';
   import Autentisering from "./components/autentisering.svelte";   
+  import { integrationsFromJSON } from "@mistralai/mistralai/models/components/completionjobout.js";
   
 
     // deklarerer globale variabler
@@ -26,13 +27,13 @@
     // Store response ID per agent
     let agentResponseIds = {
         'Openai': null,
-        'Ollama': null
+        'Ollama': Date.now().toString(), // Start med en unik ID for å unngå null ved første melding
 
     };
 
     let agentResponseIDHistory = {
         'Openai': [],
-        'Ollama': [],
+        'Ollama': [ agentResponseIds['Ollama']] // Start historikken med den første ID-en,
 
     };
 
@@ -121,6 +122,7 @@
         // henter tidligere response ID for denne agenten
         const previousResponseId = agentResponseIds[selectedAgent];
         console.log("Previous Response ID for " + selectedAgent + ": " + previousResponseId);
+
         
         // sender melding til SelectAgent.js og venter på svar fra utvalgt agent
         selectAgent(inputmessage, selectedAgent, systemInstruks, previousResponseId).then((result) => {
@@ -200,7 +202,6 @@
 
 
 <main>
-    <img class="logo" title="Lugin" src="/src/lib/logo/artificial intelligence - Logo2.png" alt="">
     <button class="sidebar-btn" title="Åpne/lukk meny" on:click={sidebar} type="button">☰</button>
     <button class="resetBtn" title="Ny Samtale" type="button">⟳</button>
     <div class="sidebar" class:open={isMenuOpen}>
@@ -209,6 +210,7 @@
         </h1>
         <select title="Velg agent" class="select-btn" name="" id="">
             <option value="Openai">ChatGPT</option>
+            <option value="Ollama">Ollama</option>
         </select>
         <div class="userData">
         </div>
@@ -232,8 +234,10 @@
             <ul class="chatbox">
                 <li class="chat_incoming">
                 </li>
+
             </ul>
         </div>
+        <p class="appVersjon">v0.2</p>
     {/if}</main>
 
 <style>
@@ -246,13 +250,21 @@ main {
     width: 100%;
     height: 100vh;
     overflow-x: hidden;
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, Apple Color Emoji, Segoe UI Emoji;
+    font-family: "Cascadia Mono", "Consolas", "Lucida Console", monospace;
 }
 h1 {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 20px;
     color: white;
+}
+.appVersjon {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    color: #545454;
+    font-size: 15px;
+    margin-right: 20px;
 }
 .sidebar {
     position: fixed;
@@ -270,7 +282,7 @@ h1 {
 }
 .sidebar-btn {
     position: fixed;
-    top: 60px;
+    top: 25px;
     left: 10px;
     height: 30px;
     border-radius: 5px;
@@ -278,27 +290,18 @@ h1 {
     z-index: 1000;
     background-color: #545454;
     color: white;
+    border-color: var(--color-stein-50);
     border: none;
     padding: 5px 10px;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-.logo {
-    position: fixed;
-    top: 20px;
-    left: 10px;
-    height: 30px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-
 }
 .sidebar-btn:hover {
     background-color: #383838;
 }
 .resetBtn {
     position: fixed;
-    margin-top: 100px;
+    margin-top: 65px;
     left: 10px;
     height: 30px;
     width: 30px;
@@ -318,10 +321,11 @@ h1 {
 .select-btn {
     width: 100%;
     padding: 10px;
-    margin-top: 65px;
+    margin-top: 30px;
     box-sizing: border-box;
     border-radius: 5px;
     border: 1px solid #ccc;
+    border-color: var(--color-stein-50);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     background-color: #545454;
     color: white;
@@ -349,6 +353,7 @@ h1 {
     max-width: 97.03%;
     height: 98%;
     border-radius: 10px;
+    border-color: var(--color-stein-50);
     border-style: solid;
     border-width: 1px;
     border-color: #333;
@@ -459,7 +464,7 @@ h1 {
 @media (min-width: 1200px) and (max-width: 1800px) {
         .chatbox {
             left: 23%;
-            max-height: 90%;
+            max-height: 83%;
             max-width: 60%;
             overflow-y: auto;
 
@@ -467,6 +472,7 @@ h1 {
         }
         .chatbot_wrapper {
             width: 95.95%;
+            border-color: var(--color-stein-50);
         }
         .chatbot_wrapper.shifted {
             margin-left: 200px;

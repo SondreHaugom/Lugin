@@ -1,3 +1,27 @@
+
+import ollama
+
+model = 'bge-large:335'  # bytt til din
+
+res = ollama.generate(
+    model=model,
+    prompt='Skriv en kort setning om Norge.'
+)
+
+print(res['response'])
+
+
+
+
+
+
+
+
+
+"""
+Docstring for routes.components.server.Ollama.test
+
+
 import os
 from ollama import Client
 from dotenv import load_dotenv
@@ -18,3 +42,4 @@ messages = [
 
 for part in client.chat('gpt-oss:120b', messages=messages, stream=True):
   print(part['message']['content'], end='', flush=True)
+  """
