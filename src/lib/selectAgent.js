@@ -2,6 +2,7 @@
 export const selectAgent = async (message, agentType, systemInstruks = "", previousResponseId = null) => {
     // Bestem endpoint basert på agentType
     let endpoint = '/components/server/Openai';
+    if (agentType === 'Ollama') endpoint = '/components/server/Ollama';
 
 
     // Sjekk at agentType er gyldig
@@ -27,6 +28,8 @@ export const selectAgent = async (message, agentType, systemInstruks = "", previ
 
     // Oppretter en payload variabel for å håndtere både OpenAI og MistralAI svar, og returnerer både svaret og response ID
     const payload = await response.json();
+    
+    console.log(`Full payload from ${agentType}:`, JSON.stringify(payload, null, 2));
 
     // Håndterer både OpenAI og MistralAI svar, og returnerer både svaret og response ID
     const raw = payload.response ??
