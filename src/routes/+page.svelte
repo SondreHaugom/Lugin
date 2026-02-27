@@ -209,7 +209,7 @@
             Lugin
         </h1>
         <select title="Velg agent" class="select-btn" name="" id="">
-            <option value="Openai">ChatGPT</option>
+            <option value="Openai">ChatGPT-lite</option>
             <option value="Ollama">Ollama</option>
         </select>
         <div class="userData">
@@ -237,7 +237,7 @@
 
             </ul>
         </div>
-        <p class="appVersjon">v0.2</p>
+        <p class="appVersjon">v0.3</p>
     {/if}</main>
 
 <style>
@@ -246,7 +246,9 @@
 
 
 main {
-    background-color: #272727;
+    background:
+  radial-gradient(circle at 25% 20%, rgba(41,74,149,0.18) 0%, rgba(41,74,149,0) 60%),
+  linear-gradient(135deg, #181b28 0%, #14161b 55%, #23272f 100%);
     width: 100%;
     height: 100vh;
     overflow-x: hidden;
@@ -282,55 +284,120 @@ h1 {
 }
 .sidebar-btn {
     position: fixed;
-    top: 25px;
+    top: 20px;
     left: 10px;
-    height: 30px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    height: 35px;
+    width: 35px;
+    border-radius: 8px;
     z-index: 1000;
-    background-color: #545454;
-    color: white;
-    border-color: var(--color-stein-50);
     border: none;
-    padding: 5px 10px;
+    padding: 0;
     cursor: pointer;
-    transition: background-color 0.3s;
+    
+    /* Enkel glassstil */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    
+    color: white;
+    font-size: 16px;
+    
+    /* Enkel skygge */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    
+    transition: all 0.2s ease;
 }
+
 .sidebar-btn:hover {
-    background-color: #383838;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar-btn:active {
+    transform: translateY(0px);
 }
 .resetBtn {
     position: fixed;
     margin-top: 65px;
     left: 10px;
-    height: 30px;
-    width: 30px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    height: 35px;
+    width: 35px;
+    border-radius: 8px;
     z-index: 1000;
-    background-color: #545454;
-    color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 0;
     cursor: pointer;
-    transition: background-color 0.3s;
+    
+    /* Matching enkel stil */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    
+    color: white;
+    font-size: 16px;
+    
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    
+    transition: all 0.2s ease;
 }
+
 .resetBtn:hover {
-    background-color: #383838;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.resetBtn:active {
+    transform: translateY(0px);
 }
 .select-btn {
     width: 100%;
     padding: 10px;
-    margin-top: 30px;
+    margin-top: 35px;
     box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    border-color: var(--color-stein-50);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    background-color: #545454;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    
+    /* Enkel glassstil */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
     color: white;
+    font-size: 16px;
+    
+    /* Enkel skygge */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    
+    transition: all 0.2s ease;
 }
 
+.select-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.select-btn option {
+    background-color: rgba(24, 27, 40, 0.95);
+    color: white;
+    padding: 8px;
+    border: none;
+}
+
+.select-btn option:hover,
+.select-btn option:checked {
+    background-color: rgba(41, 74, 149, 0.8);
+}
+
+.select-btn option:hover,
+.select-btn option:checked {
+    background-color: rgba(41, 74, 149, 0.8); /* Blåaktig när hover/selected */
+}
 .chatbox {
     position: absolute;
     top: 30px;
@@ -340,7 +407,7 @@ h1 {
     max-width: 51%;
     height: 850px;
     z-index: 2000;
-
+    border-color: var(--color-stein-50);
 
 
 }
@@ -352,15 +419,46 @@ h1 {
     width: 97.03%;
     max-width: 97.03%;
     height: 98%;
-    border-radius: 10px;
-    border-color: var(--color-stein-50);
-    border-style: solid;
-    border-width: 1px;
-    border-color: #333;
+    border-radius: 20px;
     margin-left: 50px;
     display: block;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color:#3c3c3c;
+    
+    /* Subtle glassmorphism uten fargendring */
+    background: rgba(255, 255, 255, 0.02);
+    
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    
+    /* Diskret border som matcher tema */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    
+    /* Enhanced shadow for dybde */
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.03);
+    
+    position: relative;
+}
+
+/* Mer subtil glow som matcher bakgrunnen */
+.chatbot_wrapper::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(45deg, 
+        rgba(41, 74, 149, 0.1) 0%, 
+        rgba(255, 255, 255, 0.02) 25%, 
+        rgba(41, 74, 149, 0.08) 50%, 
+        rgba(255, 255, 255, 0.02) 75%, 
+        rgba(41, 74, 149, 0.1) 100%);
+    border-radius: 21px;
+    z-index: -1;
+    opacity: 0.3;
+    filter: blur(0.5px);
 }
 
 .chatbot_wrapper.shifted {
@@ -374,7 +472,9 @@ h1 {
         margin: 0;
 }
     :global(.user_message) {
-        background-color: #545454;
+            backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
         color: white;
         padding: 10px;
         border-radius: 10px;
