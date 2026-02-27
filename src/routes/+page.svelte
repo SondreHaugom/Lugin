@@ -290,6 +290,7 @@ h1 {
     z-index: 1000;
     background-color: #545454;
     color: white;
+    border-color: var(--color-stein-50);
     border: none;
     padding: 5px 10px;
     cursor: pointer;
@@ -324,6 +325,7 @@ h1 {
     box-sizing: border-box;
     border-radius: 5px;
     border: 1px solid #ccc;
+    border-color: var(--color-stein-50);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     background-color: #545454;
     color: white;
@@ -351,6 +353,7 @@ h1 {
     max-width: 97.03%;
     height: 98%;
     border-radius: 10px;
+    border-color: var(--color-stein-50);
     border-style: solid;
     border-width: 1px;
     border-color: #333;
@@ -469,6 +472,7 @@ h1 {
         }
         .chatbot_wrapper {
             width: 95.95%;
+            border-color: var(--color-stein-50);
         }
         .chatbot_wrapper.shifted {
             margin-left: 200px;

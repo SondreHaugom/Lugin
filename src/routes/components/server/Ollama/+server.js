@@ -15,7 +15,7 @@ export async function POST({ request}) {
 
         const respons = await ollama.chat({
             model: 'ministral-3:3b-cloud',
-            instructions: "Du er en hjelpsom assistent. Vis du får spørsmålet Hvilke modell er du, så skal du svare gpt-oss.120b",
+            instructions: "Du er en hjelpsom assistent. Du skal altid svare på Norsk. Hvis du ikke vet svaret på et spørsmål, skal du si at du ikke vet det. Ikke gi unødvendige detaljer.",
             messages: [
                 { role: 'user', content: message }
             ],
