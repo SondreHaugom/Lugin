@@ -1,6 +1,7 @@
 import { Ollama } from "ollama";
 import {env} from '$env/dynamic/private';
 import { json } from "@sveltejs/kit";
+import crypto from 'crypto';
 
 const ollama = new Ollama({
     host: "https://ollama.com",
@@ -11,25 +12,25 @@ const ollama = new Ollama({
 
 export async function POST({ request}) {
     try {
-        const { message, previousResponseId } = await request.json();
+        const { message, agentResponseIds, previousResponseId } = await request.json();
+        
+        // Bruk messages fra agentResponseIds hvis de finnes
+        const messages = agentResponseIds?.messages || [{ role: 'user', content: message }];
 
         const respons = await ollama.chat({
-            model: 'ministral-3:3b-cloud',
-            instructions: "Du er en hjelpsom assistent. Du skal altid svare på Norsk. Hvis du ikke vet svaret på et spørsmål, skal du si at du ikke vet det. Ikke gi unødvendige detaljer.",
-            messages: [
-                { role: 'user', content: message }
-            ],
-            previousResponseId: previousResponseId
+            model: 'gpt-oss:120b-cloud',
+            instructions: "Du er en hjelpsom assistent...",
+            messages: messages,  // Send hele samtalehistorikken
+
+            previousResponseId: previousResponseId // Send tidligere response ID hvis den finnes
         });
 
-        console.log('Ollama full response:', JSON.stringify(respons, null, 2));
-        
-        
-        // Ollama response structure is usually respons.message.content
         const content = respons.message?.content || respons.content || '';
-        console.log('Extracted content:', content);
 
-        return json({ response: content});
+        return json({ 
+            response: content,
+            responseId: crypto.randomUUID()
+        });
     } catch (error) {
         return json({ error: error.message }, { status: 500 });
     }

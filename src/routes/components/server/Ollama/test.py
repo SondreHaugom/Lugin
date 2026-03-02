@@ -1,45 +1,43 @@
-
-import ollama
-
-model = 'bge-large:335'  # bytt til din
-
-res = ollama.generate(
-    model=model,
-    prompt='Skriv en kort setning om Norge.'
-)
-
-print(res['response'])
-
-
-
-
-
-
-
-
-
-"""
-Docstring for routes.components.server.Ollama.test
-
-
-import os
 from ollama import Client
-from dotenv import load_dotenv
+import dotenv
+import os
 
-load_dotenv()
+dotenv.load_dotenv()  # Load environment variables from .env file
 
+# Initialize the Ollama client with the API key from environment variables
 client = Client(
     host="https://ollama.com",
     headers={'Authorization': 'Bearer ' + os.environ.get('OLLAMA_API_KEY')}
 )
 
-messages = [
-  {
-    'role': 'user',
-    'content': 'Hvilken modell er du?',
-  },
-]
+# Deklarerer en global variabel for ¨å holde samtalehistorikken
+conversationHistory = [{"role": "system", "content": "Du er en hjelpsom assistent som svarer på spørsmål og hjelper med oppgaver."}]
 
-for part in client.chat('gpt-oss:120b', messages=messages, stream=True):
-  print(part['message']['content'], end='', flush=True)
-  """
+
+# Funksjon for å chatte med Ollama, som tar inn en prompt og oppdaterer samtalehistorikken
+def chatWithOllama(prompt):
+    try:
+        conversationHistory.append({"role": "user", "content": prompt})
+
+        response = client.chat(
+            model="gpt-oss:120b-cloud",
+            messages=conversationHistory,
+        )
+        
+        conversationHistory.append({"role": "assistant", "content": response['message']['content']})
+        return response
+    except Exception as e:
+        print("Error during chat:", e)
+        return False
+    
+if __name__ == "__main__":
+    while True:
+        user_input = input("You: ")
+        if user_input.lower().strip() in ["exit", "quit", "q"]:
+            print("Exiting chat.")
+            break
+        response = chatWithOllama(user_input)
+        if response:
+            print("Ollama:", response['message']['content'])
+        else:
+            print("Failed to get response from Ollama.")

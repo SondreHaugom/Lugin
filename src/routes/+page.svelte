@@ -27,7 +27,7 @@
     // Store response ID per agent
     let agentResponseIds = {
         'Openai': null,
-        'Ollama': Date.now().toString(), // Start med en unik ID for å unngå null ved første melding
+        'Ollama': { id: null, messages: [] } 
 
     };
 
@@ -123,21 +123,39 @@
         const previousResponseId = agentResponseIds[selectedAgent];
         console.log("Previous Response ID for " + selectedAgent + ": " + previousResponseId);
 
-        
-        // sender melding til SelectAgent.js og venter på svar fra utvalgt agent
-        selectAgent(inputmessage, selectedAgent, systemInstruks, previousResponseId).then((result) => {
-            // Lagre ny response ID for denne agenten
-            agentResponseIds[selectedAgent] = result.responseId;
-            agentResponseIDHistory[selectedAgent].push(result.responseId);
-            console.log("Response ID for " + selectedAgent + ": " + result.responseId);
-            console.log("Response ID History for " + selectedAgent + ": " + agentResponseIDHistory[selectedAgent]);
-        
-            
-            
-            createChatMessage(result.response, 'chat_incoming', true);
+        if (selectedAgent === 'Openai') {
+            const previousResponseId = agentResponseIds[selectedAgent];
 
-        });
+            selectAgent(inputmessage, selectedAgent, systemInstruks, previousResponseId).then((result) => {
+                // Oppdaterer response ID for OpenAI
+                agentResponseIds[selectedAgent] = result.responseId;
+                agentResponseIDHistory[selectedAgent].push(result.responseId); // Legg til i historikken
+
+                createChatMessage(result.response, 'chat_incoming', true);
+            });
+        } else if (selectedAgent === 'Ollama') {
+            const previousResponseId = agentResponseIds[selectedAgent].id;
+
+            agentResponseIds['Ollama'].messages.push({role: 'user', content: inputmessage });  
+            console.log((agentResponseIds['Ollama']));
+
+             selectAgent(inputmessage, selectedAgent, systemInstruks, previousResponseId).then((result) => {
+                 console.log('🎉 Got response from Ollama:', result);
+
+                 agentResponseIDHistory['Ollama'].push(result.responseId); // Legg til i historikken
+
+                 
+                  // Legg til bot-svaret i messages-arrayet
+                  agentResponseIds['Ollama'].messages.push({ role: 'assistant', content: result.response });
+
+                  createChatMessage(result.response, 'chat_incoming', true);
+             });
+
+
+        }
         
+
+
         // tømmer inputfeltet etter sending
         userInput.value = "";
     }
@@ -164,7 +182,7 @@
             if (userChoice) {
                 agentResponseIds = {
                     'Openai': null,
-                    'Ollama': null
+                    'Ollama': { id: null, messages: [] } // ✅ Riktig format!
             };
                 agentResponseIDHistory = {
                     'Openai': [],
