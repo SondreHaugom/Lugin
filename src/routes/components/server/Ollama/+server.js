@@ -12,26 +12,26 @@ const ollama = new Ollama({
 
 export async function POST({ request}) {
     try {
-        const { message, agentResponseIds, previousResponseId } = await request.json();
+        const { message, conversationHistory = [] } = await request.json();
         
-        // Bruk messages fra agentResponseIds hvis de finnes
-        const messages = agentResponseIds?.messages || [{ role: 'user', content: message }];
-
+        // Legg til ny brukermelding
+        conversationHistory.push({ role: 'user', content: message });
+        
         const respons = await ollama.chat({
             model: 'gpt-oss:120b-cloud',
-            instructions: "Du er en hjelpsom assistent...",
-            messages: messages,  // Send hele samtalehistorikken
-
-            previousResponseId: previousResponseId // Send tidligere response ID hvis den finnes
+            messages: conversationHistory, 
         });
 
         const content = respons.message?.content || respons.content || '';
+        
+        // Legg til AI-svar
+        conversationHistory.push({ role: 'assistant', content: content });
 
         return json({ 
             response: content,
-            responseId: crypto.randomUUID()
+            conversationHistory: conversationHistory // Send tilbake oppdatert historikk
         });
     } catch (error) {
         return json({ error: error.message }, { status: 500 });
     }
-}
+} 
