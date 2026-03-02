@@ -27,13 +27,14 @@
     // Store response ID per agent
     let agentResponseIds = {
         'Openai': null,
-        'Ollama': Date.now().toString(), // Start med en unik ID for å unngå null ved første melding
+        'Ollama': []
+
 
     };
 
     let agentResponseIDHistory = {
         'Openai': [],
-        'Ollama': [ agentResponseIds['Ollama']] // Start historikken med den første ID-en,
+        'Ollama': []
 
     };
 
@@ -42,7 +43,7 @@
 
     // vis menyen basert på skjermstørrelse
     if (typeof window !== 'undefined' && window.innerWidth < 600) {
-        isMenuOpen = false;
+        isMenuOpen = !isMenuOpen;
     }
 
     // funksjon for å åpne/lukke menyen
@@ -108,7 +109,7 @@
 
 
     // funksjon for å sende meldinger og motta svar fra Valgte KI-agent
-    function sendtMessage() {
+        function sendtMessage() {
 
         // henter og skjekker brukerdata fra inputfeltet
         const inputmessage = userInput.value.trim();
@@ -121,17 +122,19 @@
         const selectedAgent = selectBtn.value;
         // henter tidligere response ID for denne agenten
         const previousResponseId = agentResponseIds[selectedAgent];
-        console.log("Previous Response ID for " + selectedAgent + ": " + previousResponseId);
-
         
         // sender melding til SelectAgent.js og venter på svar fra utvalgt agent
         selectAgent(inputmessage, selectedAgent, systemInstruks, previousResponseId).then((result) => {
             // Lagre ny response ID for denne agenten
-            agentResponseIds[selectedAgent] = result.responseId;
+
+            if (selectedAgent === 'Ollama') {
+                agentResponseIds[selectedAgent] = result.conversationHistory; // For Ollama, lagre hele samtalehistorikken
+            } else {
+                agentResponseIds[selectedAgent] = result.responseId; // For OpenAI, lagre enkelt response ID
+            }
+
+
             agentResponseIDHistory[selectedAgent].push(result.responseId);
-            console.log("Response ID for " + selectedAgent + ": " + result.responseId);
-            console.log("Response ID History for " + selectedAgent + ": " + agentResponseIDHistory[selectedAgent]);
-        
             
             
             createChatMessage(result.response, 'chat_incoming', true);
@@ -165,10 +168,11 @@
                 agentResponseIds = {
                     'Openai': null,
                     'Ollama': null
+
             };
                 agentResponseIDHistory = {
                     'Openai': [],
-                    'Ollama': []
+                    'Ollama': [],
             };
             chatbox.innerHTML = '';
                 alert("Ny samtale startet!");
@@ -209,8 +213,8 @@
             Lugin
         </h1>
         <select title="Velg agent" class="select-btn" name="" id="">
-            <option value="Openai">ChatGPT-lite</option>
             <option value="Ollama">Ollama</option>
+            <option value="Openai">ChatGPT-lite</option>
         </select>
         <div class="userData">
         </div>
@@ -224,12 +228,8 @@
             {#if currentAgent === "Openai"}
                 <AgentInnstruks bind:systemInstruks />
             {/if}
-
-            {#if currentAgent === "Transkripsjon"}
-                <Transkripsjon bind:audioFile />
-            {:else}
                 <UserInput />
-            {/if}
+
 
             <ul class="chatbox">
                 <li class="chat_incoming">
@@ -237,7 +237,7 @@
 
             </ul>
         </div>
-        <p class="appVersjon">v0.3</p>
+        <p class="appVersjon">v0.4</p>
     {/if}</main>
 
 <style>
@@ -407,7 +407,6 @@ h1 {
     max-width: 51%;
     height: 850px;
     z-index: 2000;
-    border-color: var(--color-stein-50);
 
 
 }
@@ -422,7 +421,7 @@ h1 {
     border-radius: 20px;
     margin-left: 50px;
     display: block;
-    
+    border-color: var(--color-stein-50) !important;
     /* Subtle glassmorphism uten fargendring */
     background: rgba(255, 255, 255, 0.02);
     
@@ -504,27 +503,51 @@ h1 {
 
 
 @media (min-width: 300px) and (max-width: 600px) {
-        .chatbot_wrapper {
-                width: 86%;
-        }
+    .chatbot_wrapper {
+        margin-left: 6px;
+        width: 99%;
+        display: block;
+        border-color: var(--color-stein-50);
+    }
+    .chatbot_wrapper.shifted {
+        margin-left: 200px;
+        width: calc(99% - 200px);
+    }
         .chatbox {
+            margin-top: 30px;
             left: 1%;
             max-height: 80%;
             width: 86% !important;
             max-width: 86% !important;
             overflow-y: auto;
-
         }
         :global(.user_message) {
             font-size: 12px;
-            margin-left: 50%;
+            margin-left: 80%;
         }  
         :global(.bot_message) {
             font-size: 12px;
-            margin: 10px 10px 10px 0px !important; /* top right bottom left */
+            margin: 10px 20px 10px 0px !important; /* top right bottom left */
             padding-left: 0px !important;
             position: static; /* sikrer at den ikke er absolute */
-}
+        }
+        .sidebar-btn {
+            top: 60px;
+            left: 27px;
+        }
+        .resetBtn {
+            top: 40px;
+            left: 27px;
+        }
+        .select-btn {
+            margin-top: 80px;
+        }
+        .appVersjon {
+            bottom: 5px;
+            right: 5px;
+            font-size: 12px;
+        }
+
 
 }
 
@@ -539,6 +562,7 @@ h1 {
         }
         .chatbot_wrapper {
             width: 92.2%;
+            border-color: var(--color-stein-50);
         }
         .chatbot_wrapper.shifted {
             margin-left: 200px;

@@ -1,8 +1,8 @@
 // Denne funksjonen sender en melding til den valgte agenten og returnerer både svaret og response ID
 export const selectAgent = async (message, agentType, systemInstruks = "", previousResponseId = null) => {
     // Bestem endpoint basert på agentType
-    let endpoint = '/components/server/Openai';
-    if (agentType === 'Ollama') endpoint = '/components/server/Ollama';
+    let endpoint = '/components/server/Ollama';
+    if (agentType === 'Openai') endpoint = '/components/server/Openai';
 
 
     // Sjekk at agentType er gyldig
@@ -22,7 +22,8 @@ export const selectAgent = async (message, agentType, systemInstruks = "", previ
         body: JSON.stringify({ 
             message: message, 
             systemInstruks: systemInstruks, // Send instruksjonene med
-            previousResponseId: previousResponseId
+            previousResponseId: previousResponseId,
+            conversationHistory: previousResponseId  // For Ollama er dette samtalehistorikken
         })
     });
 
@@ -38,6 +39,8 @@ export const selectAgent = async (message, agentType, systemInstruks = "", previ
     // Returner både svar og response ID
     return {
         response: raw || 'Beklager, ingen respons mottatt.',
-        responseId: payload.responseId 
+        responseId: payload.responseId,
+        conversationHistory: payload.conversationHistory // For Ollama, returner oppdatert samtalehistorikk
+
     };
 }
