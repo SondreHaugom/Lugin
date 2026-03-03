@@ -1,6 +1,8 @@
 <script>
      import '$lib/global.css';
 
+     
+
 </script>
 
 
@@ -124,6 +126,27 @@
     .sendBtn {
         width: 35px;
         height: 35px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1200px) {
+    .input-container {
+        left: 15%;
+        height: 45px;
+        width: 70%;
+        max-width: 70%;
+        border-radius: 12px;
+    }
+
+    .user_input {
+        width: 90%;
+        height: 18px;
+        font-size: 15px;
+        border-radius: 10px;
+    }
+    .sendBtn {
+        width: 38px;
+        height: 38px;
     }
 }
 
