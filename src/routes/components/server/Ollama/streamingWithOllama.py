@@ -21,10 +21,14 @@ def chatWithOllama(prompt):
 
         response = client.chat(
             model="gpt-oss:120b-cloud",
+            
             messages=conversationHistory,
+
         )
         
         conversationHistory.append({"role": "assistant", "content": response['message']['content']})
+
+
         return response
     except Exception as e:
         print("Error during chat:", e)

@@ -27,18 +27,16 @@ export async function POST(request) {
 
         // Oppretter en forespørsel til OpenAI API med melding, systeminstruksjoner og tidligere response ID, og mottar svaret
         const response = await client.responses.create({
-            model: "gpt-5-nano-2025-08-07",
+            model: "gpt-4.1-nano-2025-04-14",
             instructions: systemInstruks || defaultSystemInstruks, 
-            tools: [
-                { type: "web_search" },
-            ],
             input: [
                 {
                     role: "user",
                     content: message,
                 },
             ],
-            previous_response_id: previousResponseId
+            max_output_tokens: 600,
+            previous_response_id: previousResponseId,
         });
         // returnerer svaret og response ID i JSON-format
         console.log ('systemInstruks:', systemInstruks || defaultSystemInstruks);

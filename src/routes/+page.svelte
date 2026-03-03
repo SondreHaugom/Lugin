@@ -53,7 +53,7 @@
 
     }
 
-    // funksjon for å streame tekst
+
     const streamText = (element, text, speed = 2) => {
         const markdownText = md.render(addKaTexToMathStrings(wrapInPreCode(text)));
         // definerer en indeks for å holde styr på posisjonen i teksten
@@ -70,6 +70,7 @@
             chatbox.scrollTop = chatbox.scrollHeight;
         }, speed);
     };
+
 
     // funksjon for å opprette og legge til meldinger i chatboksen
     const createChatMessage = (message, className, isStreaming = false) => {
@@ -94,6 +95,7 @@
         // henter meldingsdiven
         const messageDiv = chatLi.querySelector(className === 'chat_incoming' ? '.bot_message' : '.user_message');
 
+
         if (isStreaming && className === 'chat_incoming') {
             streamText(messageDiv, message);
         } else if (className === 'chat_incoming') {
@@ -102,6 +104,7 @@
         } else {
             messageDiv.textContent = message;
         }
+
 
          // ruller chatboksen til bunnen for å vise den nyeste meldingen
          chatbox.scrollTop = chatbox.scrollHeight;
@@ -237,7 +240,7 @@
 
             </ul>
         </div>
-        <p class="appVersjon">v0.4</p>
+        <p class="appVersjon">v0.5</p>
     {/if}</main>
 
 <style>
