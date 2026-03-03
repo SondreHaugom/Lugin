@@ -9,6 +9,7 @@
   import UserInput from './components/userInput.svelte';
   import Autentisering from "./components/autentisering.svelte";   
   import { integrationsFromJSON } from "@mistralai/mistralai/models/components/completionjobout.js";
+  import TypingDots from './components/TypingDots.svelte';
   
 
     // deklarerer globale variabler
@@ -17,6 +18,9 @@
     let systemInstruks = ""; // For å holde systeminstruksjoner
     let audioFile = null; // For å holde valgt lydfil for transkripsjon
     let isLoggedIn = false; // For å spore innloggingsstatus
+    let showTypingDots = false;
+
+
 
     // Funksjon for å håndtere vellykket innlogging
     function handleSuccessfulLogin() {
@@ -42,7 +46,7 @@
     let isMenuOpen = true;
 
     // vis menyen basert på skjermstørrelse
-    if (typeof window !== 'undefined' && window.innerWidth < 600) {
+    if (typeof window !== 'undefined' && window.innerWidth < 800) {
         isMenuOpen = !isMenuOpen;
     }
 
@@ -53,7 +57,7 @@
 
     }
 
-    // funksjon for å streame tekst
+
     const streamText = (element, text, speed = 2) => {
         const markdownText = md.render(addKaTexToMathStrings(wrapInPreCode(text)));
         // definerer en indeks for å holde styr på posisjonen i teksten
@@ -71,8 +75,9 @@
         }, speed);
     };
 
+
     // funksjon for å opprette og legge til meldinger i chatboksen
-    const createChatMessage = (message, className, isStreaming = false) => {
+    const createChatMessage = (message, className, isStreaming = false, showTypingDots = false) => {
         // oppretter en listeelement for meldingen
         let chatLi = document.createElement("li");
 
@@ -83,7 +88,7 @@
         let content = '';
         // sjekker om meldingen er fra boten eller brukeren og legger til riktig div
         if (className === 'chat_incoming') {
-            content = `<div class="bot_message"></div>`;
+            content = `<div class="bot_message"> <TypingDots /></div>`;
         } else {
             content = `<div class="user_message"></div>`;
         }
@@ -94,6 +99,7 @@
         // henter meldingsdiven
         const messageDiv = chatLi.querySelector(className === 'chat_incoming' ? '.bot_message' : '.user_message');
 
+
         if (isStreaming && className === 'chat_incoming') {
             streamText(messageDiv, message);
         } else if (className === 'chat_incoming') {
@@ -102,6 +108,7 @@
         } else {
             messageDiv.textContent = message;
         }
+
 
          // ruller chatboksen til bunnen for å vise den nyeste meldingen
          chatbox.scrollTop = chatbox.scrollHeight;
@@ -118,6 +125,7 @@
         // viser brukerens melding i chatboksen
         createChatMessage(inputmessage, 'chat_outgoing');
 
+        showTypingDots = true;
         // henter valgt agent fra dropdown-menyen
         const selectedAgent = selectBtn.value;
         // henter tidligere response ID for denne agenten
@@ -126,6 +134,8 @@
         // sender melding til SelectAgent.js og venter på svar fra utvalgt agent
         selectAgent(inputmessage, selectedAgent, systemInstruks, previousResponseId).then((result) => {
             // Lagre ny response ID for denne agenten
+
+            showTypingDots = false;
 
             if (selectedAgent === 'Ollama') {
                 agentResponseIds[selectedAgent] = result.conversationHistory; // For Ollama, lagre hele samtalehistorikken
@@ -233,11 +243,14 @@
 
             <ul class="chatbox">
                 <li class="chat_incoming">
+                    {#if showTypingDots}
+                        <TypingDots />
+                    {/if}
                 </li>
 
             </ul>
         </div>
-        <p class="appVersjon">v0.4</p>
+        <p class="appVersjon">v0.5</p>
     {/if}</main>
 
 <style>
@@ -543,7 +556,7 @@ h1 {
             margin-top: 80px;
         }
         .appVersjon {
-            bottom: 5px;
+            bottom: 80px;
             right: 5px;
             font-size: 12px;
         }
@@ -551,7 +564,7 @@ h1 {
 
 }
 
-@media (min-width: 601px) and (max-width: 1200px) {
+@media (min-width: 601px) and (max-width: 1000px) {
             .chatbox {
             left: 21%;
             max-height: 80% !important;
@@ -561,7 +574,7 @@ h1 {
 
         }
         .chatbot_wrapper {
-            width: 92.2%;
+            width: 91.2%;
             border-color: var(--color-stein-50);
         }
         .chatbot_wrapper.shifted {
@@ -579,10 +592,15 @@ h1 {
             font-size: 15px;
 
     
+        }
+        .appVersjon {
+            bottom: 20px;
+            right: 10px;
+            font-size: 14px;
         } 
 }
 
-@media (min-width: 1200px) and (max-width: 1800px) {
+@media (min-width: 1000px) and (max-width: 1200px) {
         .chatbox {
             left: 23%;
             max-height: 83%;
@@ -592,12 +610,26 @@ h1 {
 
         }
         .chatbot_wrapper {
-            width: 95.95%;
+            width: 94%;
             border-color: var(--color-stein-50);
         }
         .chatbot_wrapper.shifted {
             margin-left: 200px;
             width: calc(99.2% - 200px);
+        }
+        
+}
+
+@media (min-width: 1201px) and (max-width: 1600px) {
+        .chatbox {
+            left: 25%;
+            max-height: 85%;
+            max-width: 50%;
+            overflow-y: auto;
+        }
+        .chatbot_wrapper {
+            width: 96.35%;
+            border-color: var(--color-stein-50);
         }
         
 }
