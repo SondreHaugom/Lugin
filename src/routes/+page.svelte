@@ -10,6 +10,7 @@
   import Autentisering from "./components/autentisering.svelte";   
   import { integrationsFromJSON } from "@mistralai/mistralai/models/components/completionjobout.js";
   import TypingDots from './components/TypingDots.svelte';
+  import { scrollToTop } from '$lib/scrollToTop.js';
   
 
     // deklarerer globale variabler
@@ -195,6 +196,8 @@
             userInput.addEventListener("keypress", (e) => {
                 if (e.key === "Enter") {
                     sendtMessage();
+                    scrollToTop();
+                    
                 }
             })
         }
@@ -263,7 +266,8 @@ main {
     width: 100%;
     height: 100vh;
     overflow-x: hidden;
-    font-family: "Cascadia Mono", "Consolas", "Lucida Console", monospace;
+    overflow-y: hidden;
+    font-family: "Courier New", Courier, monospace;
 }
 h1 {
     text-align: center;

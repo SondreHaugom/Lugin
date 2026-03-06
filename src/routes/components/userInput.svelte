@@ -1,6 +1,19 @@
 <script>
-     import '$lib/global.css';
+    import '$lib/global.css';
+    import { text } from '@sveltejs/kit';
+    import { onMount } from 'svelte';
+    import { scrollToTop } from '$lib/scrollToTop.js';
 
+     onMount(() => {
+            const sendBtn = document.querySelector('.sendBtn');
+            const userInput = document.querySelector('.user_input');
+
+            if (sendBtn && userInput) {
+                sendBtn.addEventListener('click', () => {
+                    scrollToTop();
+                });
+            }
+     });
      
 
 </script>
