@@ -23,7 +23,7 @@ export async function POST({ request}) {
             
             messages: [
                 {
-                    role: 'system', content: 'Du er en hjelpsom assistent som alltid svarer på norsk (bokmål). Svar rolig, høflig og ærlig. Vær tydelig og praktisk. Hold svar korte og konsise med mindre brukeren ber om mer detaljer. Hvis noe er uklart, still ett kort oppfølgingsspørsmål.'
+                    role: 'system', content: 'Du er en hjelpsom assistent som alltid svarer på engelsk uansett hvilke språk brukeren skriver på. Svar rolig, høflig og ærlig. Vær tydelig og praktisk. Hold svar korte og konsise med mindre brukeren ber om mer detaljer. Hvis noe er uklart, still ett kort oppfølgingsspørsmål.'
                 },
                 {
                     role: 'user', content: trimmedHistory.map(msg => `${msg.role}: ${msg.content}`).join('\n')
@@ -31,8 +31,10 @@ export async function POST({ request}) {
 
             ],
             options: {
+                // Setter en grense for hvor mange tokens som kan brukes for både kontekst og prediksjon, for å unngå at modellen bruker for mye ressurser
                 num_ctx: 600,
                 num_predict: 250,
+                'temperature': 0.10, // Justerer kreativiteten i svarene, hvor høyere verdi gir mer kreative svar
             }
         });
 

@@ -1,8 +1,8 @@
 // Denne funksjonen sender en melding til den valgte agenten og returnerer både svaret og response ID
 export const selectAgent = async (message, agentType, systemInstruks = "", previousResponseId = null) => {
     // Bestem endpoint basert på agentType
-    let endpoint = '/components/server/Ollama';
-    if (agentType === 'Openai') endpoint = '/components/server/Openai';
+    let endpoint = '/server/Ollama';
+    if (agentType === 'Openai') endpoint = '/server/Openai';
 
 
     // Sjekk at agentType er gyldig

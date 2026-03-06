@@ -14,9 +14,8 @@
 
     // deklarerer globale variabler
     let chatbox, userInput, sendBtn, resetBtn, toggleBtn, selectBtn;
-    let currentAgent = "Openai"; // Standard agent
+    let currentAgent = "Ollama"; // Standard agent
     let systemInstruks = ""; // For å holde systeminstruksjoner
-    let audioFile = null; // For å holde valgt lydfil for transkripsjon
     let isLoggedIn = false; // For å spore innloggingsstatus
     let showTypingDots = false;
 
@@ -58,6 +57,7 @@
     }
 
 
+
     const streamText = (element, text, speed = 2) => {
         const markdownText = md.render(addKaTexToMathStrings(wrapInPreCode(text)));
         // definerer en indeks for å holde styr på posisjonen i teksten
@@ -88,7 +88,7 @@
         let content = '';
         // sjekker om meldingen er fra boten eller brukeren og legger til riktig div
         if (className === 'chat_incoming') {
-            content = `<div class="bot_message"> <TypingDots /></div>`;
+            content = `<div class="bot_message"></div>`;
         } else {
             content = `<div class="user_message"></div>`;
         }
@@ -102,6 +102,7 @@
 
         if (isStreaming && className === 'chat_incoming') {
             streamText(messageDiv, message);
+
         } else if (className === 'chat_incoming') {
             // bruker markdown-funksjonen for å formatere botens svar
             messageDiv.innerHTML = md.render(addKaTexToMathStrings(wrapInPreCode(message)));
@@ -112,7 +113,7 @@
 
          // ruller chatboksen til bunnen for å vise den nyeste meldingen
          chatbox.scrollTop = chatbox.scrollHeight;
-    }
+    };
 
 
     // funksjon for å sende meldinger og motta svar fra Valgte KI-agent
@@ -153,7 +154,7 @@
         
         // tømmer inputfeltet etter sending
         userInput.value = "";
-    }
+    };
 
 
     onMount((async () => {
@@ -242,15 +243,12 @@
 
 
             <ul class="chatbox">
-                <li class="chat_incoming">
-                    {#if showTypingDots}
-                        <TypingDots />
-                    {/if}
-                </li>
+      
+              
 
             </ul>
         </div>
-        <p class="appVersjon">v0.5</p>
+        <p class="appVersjon">v0.6</p>
     {/if}</main>
 
 <style>
