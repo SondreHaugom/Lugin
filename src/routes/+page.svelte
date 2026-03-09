@@ -189,6 +189,9 @@
     };
 
 
+    
+
+
     onMount((async () => {
         chatbox = document.querySelector(".chatbox");
         userInput = document.querySelector(".user_input");
