@@ -100,10 +100,41 @@
         // henter meldingsdiven
         const messageDiv = chatLi.querySelector(className === 'chat_incoming' ? '.bot_message' : '.user_message');
 
-
+    
         if (isStreaming && className === 'chat_incoming') {
             streamText(messageDiv, message);
 
+
+            const speakMessage = () => {
+                let plainTextMessage = message.replace(/<\/?[^>]+(>|$)/g, ""); // Fjerner HTML-tags for tale
+                const utterance = new SpeechSynthesisUtterance(plainTextMessage);
+                utterance.lang = 'en-GB'; // Setter språk til engelsk (Storbritannia)
+
+                const voices = window.speechSynthesis.getVoices();
+                const voice = 
+                voices.find(v => v.name.includes("Microsoft Sonia Online")) 
+                || voices.find(v => v.name.includes("sonia"))
+
+                if (voice) {
+                    utterance.voice = voice;
+                }
+
+                document.addEventListener('keydown', (event) => {
+                    if (event.key === 'm' || event.key === 'M') {
+                        window.speechSynthesis.cancel();
+                        console.log("Tale avbrutt");
+                    }
+                });
+
+                window.speechSynthesis.speak(utterance);
+                console.log("Tale startet");
+            };
+        if (speechSynthesis.getVoices().length === 0) {
+            speechSynthesis.addEventListener('voiceschanged', speakMessage, { once: true });
+        } else {
+            speakMessage();
+        };
+            
         } else if (className === 'chat_incoming') {
             // bruker markdown-funksjonen for å formatere botens svar
             messageDiv.innerHTML = md.render(addKaTexToMathStrings(wrapInPreCode(message)));

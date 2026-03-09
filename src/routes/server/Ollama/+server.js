@@ -32,8 +32,8 @@ export async function POST({ request}) {
             ],
             options: {
                 // Setter en grense for hvor mange tokens som kan brukes for både kontekst og prediksjon, for å unngå at modellen bruker for mye ressurser
-                num_ctx: 600,
-                num_predict: 250,
+                num_ctx: 2045,
+                num_predict: 2050,
                 'temperature': 0.10, // Justerer kreativiteten i svarene, hvor høyere verdi gir mer kreative svar
             }
         });

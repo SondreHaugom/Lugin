@@ -89,6 +89,7 @@
 }
 .user_input::placeholder {
     color: white;
+    font-family: "Courier New", Courier, monospace;
 }
 .user_input:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
