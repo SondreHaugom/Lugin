@@ -250,9 +250,6 @@
 
 
             <ul class="chatbox">
-      
-              
-
             </ul>
         </div>
         <p class="appVersjon">v0.7</p>
@@ -532,40 +529,47 @@ h1 {
         margin-left: 200px;
         width: calc(99% - 200px);
     }
-        .chatbox {
-            margin-top: 30px;
-            left: 1%;
-            max-height: 80%;
-            width: 86% !important;
-            max-width: 86% !important;
-            overflow-y: auto;
-        }
-        :global(.user_message) {
-            font-size: 12px;
-            margin-left: 80%;
-        }  
-        :global(.bot_message) {
-            font-size: 12px;
-            margin: 10px 20px 10px 0px !important; /* top right bottom left */
-            padding-left: 0px !important;
-            position: static; /* sikrer at den ikke er absolute */
-        }
-        .sidebar-btn {
-            top: 60px;
-            left: 27px;
-        }
-        .resetBtn {
-            top: 40px;
-            left: 27px;
-        }
-        .select-btn {
-            margin-top: 80px;
-        }
-        .appVersjon {
-            bottom: 80px;
-            right: 5px;
-            font-size: 12px;
-        }
+    .chatbox {
+        margin-top: 30px;
+        left: 1%;
+        max-height: 80%;
+        width: 86% !important;
+        max-width: 86% !important;
+        overflow-y: auto;
+    }
+    :global(.user_message) {
+        font-size: 12px;
+        margin: 10px 10px 10px auto;
+        max-width: 80vw;
+        min-width: 60px;
+
+    }  
+    :global(.bot_message) {
+        font-size: 12px;
+        margin: 10px 20px 10px 0px !important; /* top right bottom left */
+        padding-left: 0px !important;
+        position: static; /* sikrer at den ikke er absolute */
+    }
+    .sidebar-btn {
+        top: 23px;
+        left: 15px;
+        height: 30px;
+        width: 30px;
+    }
+    .resetBtn {
+        top: 0px;
+        left: 15px;
+        height: 30px;
+        width: 30px;
+    }
+    .select-btn {
+        margin-top: 80px;
+    }
+    .appVersjon {
+        bottom: 80px;
+        right: 5px;
+        font-size: 12px;
+    }
 
 
 }
