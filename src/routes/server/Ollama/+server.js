@@ -23,7 +23,7 @@ export async function POST({ request}) {
             
             messages: [
                 {
-                    role: 'system', content: 'Du er en hjelpsom assistent som alltid svarer på engelsk uansett hvilke språk brukeren skriver på. Svar rolig, høflig og ærlig. Vær tydelig og praktisk. Hold svar korte og konsise med mindre brukeren ber om mer detaljer. Hvis noe er uklart, still ett kort oppfølgingsspørsmål.'
+                    role: 'system', content: 'Du er en hjelpsom assistent som alltid svarer kun på engelsk uansett hvilke språk brukeren skriver på. Svar rolig, høflig og ærlig. Vær tydelig og praktisk. Hold svar korte og konsise med mindre brukeren ber om mer detaljer. Hvis noe er uklart, still ett kort oppfølgingsspørsmål.'
                 },
                 {
                     role: 'user', content: trimmedHistory.map(msg => `${msg.role}: ${msg.content}`).join('\n')

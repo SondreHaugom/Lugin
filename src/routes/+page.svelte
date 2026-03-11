@@ -11,8 +11,8 @@
   import { integrationsFromJSON } from "@mistralai/mistralai/models/components/completionjobout.js";
   import TypingDots from './components/TypingDots.svelte';
   import { scrollToTop } from '$lib/scrollToTop.js';
+  import { speakMessage } from '$lib/speakMessage.js';
   
-
     // deklarerer globale variabler
     let chatbox, userInput, sendBtn, resetBtn, toggleBtn, selectBtn;
     let currentAgent = "Ollama"; // Standard agent
@@ -81,7 +81,7 @@
     const createChatMessage = (message, className, isStreaming = false, showTypingDots = false) => {
         // oppretter en listeelement for meldingen
         let chatLi = document.createElement("li");
-
+      
         // legger til riktig klasse basert på om meldingen er fra brukeren eller boten
         chatLi.classList.add(className);
 
@@ -103,37 +103,7 @@
     
         if (isStreaming && className === 'chat_incoming') {
             streamText(messageDiv, message);
-
-
-            const speakMessage = () => {
-                let plainTextMessage = message.replace(/<\/?[^>]+(>|$)/g, ""); // Fjerner HTML-tags for tale
-                const utterance = new SpeechSynthesisUtterance(plainTextMessage);
-                utterance.lang = 'en-GB'; // Setter språk til engelsk (Storbritannia)
-
-                const voices = window.speechSynthesis.getVoices();
-                const voice = 
-                voices.find(v => v.name.includes("Microsoft Sonia Online")) 
-                || voices.find(v => v.name.includes("sonia"))
-
-                if (voice) {
-                    utterance.voice = voice;
-                }
-
-                document.addEventListener('keydown', (event) => {
-                    if (event.key === 'm' || event.key === 'M') {
-                        window.speechSynthesis.cancel();
-                        console.log("Tale avbrutt");
-                    }
-                });
-
-                window.speechSynthesis.speak(utterance);
-                console.log("Tale startet");
-            };
-        if (speechSynthesis.getVoices().length === 0) {
-            speechSynthesis.addEventListener('voiceschanged', speakMessage, { once: true });
-        } else {
-            speakMessage();
-        };
+            speakMessage(message);
             
         } else if (className === 'chat_incoming') {
             // bruker markdown-funksjonen for å formatere botens svar
@@ -189,7 +159,7 @@
     };
 
 
-    
+
 
 
     onMount((async () => {
@@ -280,12 +250,9 @@
 
 
             <ul class="chatbox">
-      
-              
-
             </ul>
         </div>
-        <p class="appVersjon">v0.6</p>
+        <p class="appVersjon">v0.7</p>
     {/if}</main>
 
 <style>
@@ -562,40 +529,47 @@ h1 {
         margin-left: 200px;
         width: calc(99% - 200px);
     }
-        .chatbox {
-            margin-top: 30px;
-            left: 1%;
-            max-height: 80%;
-            width: 86% !important;
-            max-width: 86% !important;
-            overflow-y: auto;
-        }
-        :global(.user_message) {
-            font-size: 12px;
-            margin-left: 80%;
-        }  
-        :global(.bot_message) {
-            font-size: 12px;
-            margin: 10px 20px 10px 0px !important; /* top right bottom left */
-            padding-left: 0px !important;
-            position: static; /* sikrer at den ikke er absolute */
-        }
-        .sidebar-btn {
-            top: 60px;
-            left: 27px;
-        }
-        .resetBtn {
-            top: 40px;
-            left: 27px;
-        }
-        .select-btn {
-            margin-top: 80px;
-        }
-        .appVersjon {
-            bottom: 80px;
-            right: 5px;
-            font-size: 12px;
-        }
+    .chatbox {
+        margin-top: 30px;
+        left: 1%;
+        max-height: 80%;
+        width: 86% !important;
+        max-width: 86% !important;
+        overflow-y: auto;
+    }
+    :global(.user_message) {
+        font-size: 12px;
+        margin: 10px 10px 10px auto;
+        max-width: 80vw;
+        min-width: 60px;
+
+    }  
+    :global(.bot_message) {
+        font-size: 12px;
+        margin: 10px 20px 10px 0px !important; /* top right bottom left */
+        padding-left: 0px !important;
+        position: static; /* sikrer at den ikke er absolute */
+    }
+    .sidebar-btn {
+        top: 23px;
+        left: 15px;
+        height: 30px;
+        width: 30px;
+    }
+    .resetBtn {
+        top: 0px;
+        left: 15px;
+        height: 30px;
+        width: 30px;
+    }
+    .select-btn {
+        margin-top: 80px;
+    }
+    .appVersjon {
+        bottom: 80px;
+        right: 5px;
+        font-size: 12px;
+    }
 
 
 }
