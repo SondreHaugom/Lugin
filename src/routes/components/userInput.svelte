@@ -4,6 +4,7 @@
     import { onMount } from 'svelte';
     import { scrollToTop } from '$lib/scrollToTop.js';
 
+
      onMount(() => {
             const sendBtn = document.querySelector('.sendBtn');
             const userInput = document.querySelector('.user_input');
@@ -52,6 +53,8 @@
     display: flex;
     align-items: center;
 }
+
+
 
 .user_input {
     width: 92%;

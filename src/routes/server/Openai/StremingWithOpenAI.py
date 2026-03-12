@@ -12,7 +12,7 @@ def chatWithOpenAI():
     try:
         # Oppretter en respons ved å bruke OpenAI klienten, og spesifiserer modellen, input og at vi ønsker et stream-objekt
         response = client.responses.create(
-            model= "gpt-5.1", 
+            model= "gpt-5.4", 
             input= user_input,
             stream=True,
         )
