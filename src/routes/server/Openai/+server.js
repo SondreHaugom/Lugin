@@ -10,11 +10,6 @@ const openai_api_key = env.OPENAI_API_KEY;
 
 const VC_STORE_ID = env.VC_STORE_ID; // ID for Vector Store, hentet fra miljøvariabler
 
-if (!VC_STORE_ID) {
-    console.error("VC_STORE_ID is not set in environment variables.");
-    throw new Error("VC_STORE_ID is required");
-}
-
 // Oppretter en OpenAI-klient med API-nøkkelen
 const client = new OpenAI({
     apiKey: openai_api_key
@@ -56,11 +51,7 @@ export async function POST(request) {
             // legger til netsøk som funksjonalitet. 
             tools: [
                 {
-                    type: "web_search",
-                    parameters: {
-                        query: message,
-                        num_results: 3, // Antall søkeresultater å hente
-                    },
+                    type: "web_search"
                 }
             ],
             previous_response_id: previousResponseId,
