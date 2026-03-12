@@ -1,11 +1,13 @@
 ###
- Lugin Halvårsvurdering 
+ Lugin
 
 Min helt egen KI-tjeneste, basert på min halvårsvurdering. 
 
 ![SvelteKit](https://img.shields.io/badge/SvelteKit-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
-
+![Ollama](https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white)
+![Mistral](https://img.shields.io/badge/Mistral-FF7000?style=for-the-badge&logo=mistral&logoColor=white)
+![Speech Synthesis](https://img.shields.io/badge/Speech%20Synthesis-0A66C2?style=for-the-badge&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
 
@@ -32,21 +34,21 @@ Min helt egen KI-tjeneste, basert på min halvårsvurdering.
 
 ### Funksjoner
 - **Moderne chatgrensesnitt** med Svelte
-- ** ChatGPT - gpt-4.1-nano** (Språkmodellen som kjører/flere vil komme)
+- **ChatGPT - gpt-4.1-nano** (Språkmodellen som kjører/flere vil komme)
 - **Responsivt design** med gradient-bakgrunner og moderne styling
 - **Modulær arkitektur** med separert agent-logikk og komponenter
 - **Tastaturnavigasjon** (Enter for å sende)
 - **Systemflyt-visualisering** med integrert flytdiagram
 - **Modulære komponenter** (UserInput, AgentInstruks, OCR)
--  **Streaming av respons** (Svar fra botten kommer delsvis underveis)
-
+- **Streaming av respons** (Svar fra botten kommer delsvis underveis)
+- **Høyt opplesning**
 
 
 
 
 ### Om prosjektet
 
-Dette er min egen KI-tjeneste basert på en avansert språkmodell (en agent). Systemet er bygget med en multi-agent arkitektur, utviklet med SvelteKit, og inkluderer for øyeblikket en spesifikk agent – Mistral-agenten. Flere agenter vil bli lagt til etter hvert for å gi brukeren flere valg og muligheter, avhengig av ønsket leverandør. Systemet gjør det mulig å skifte mellom de ulike agentene underveis i bruk, selv om hver agent vil operere uavhengig av de andre og ikke kjenne til responsene deres. Dette er en ferdigstilt løsning, utviklet som en del av en halvårsvurdering etter å ha vært lærling i over seks måneder. På sikt planlegger jeg å utstyre agenten med funksjonskall for å muliggjøre tilgang til ekstern informasjon, slik at den kan benytte seg av oppdaterte data utenfor sitt treningsgrunnlag.
+Dette er min egen KI-tjeneste basert på en avansert språkmodell (en agent). Systemet er bygget med en multi-agent arkitektur, utviklet med SvelteKit, Lugin er satt opp med to agent muligheter, OpenAI og Ollama. Systemet gjør det mulig å skifte mellom de ulike agentene underveis i bruk, selv om hver agent vil operere uavhengig av de andre og ikke kjenne til responsene deres. Dette er en ferdigstilt løsning, utviklet som en del av en halvårsvurdering etter å ha vært lærling i over seks måneder. I denne tjenetsen blir speechSynthesis benytter for opplesning av agentens svar og som benytter en naturlig og god stemme for god opplesnings opplevelse. 
 
 
 ### Prosjektstruktur
@@ -126,10 +128,6 @@ For dette projektet av vi to forskjellige agent leverandører:
 - **OpenAI**
 
 Hver leverandør tilbyr et API som vi bruker for å kommunisere med deres språkmodeller. Når en bruker sender en prompt til den valgte modellen, sendes denne forespørselen til det aktuelle API-et (OpenAI eller Mistral). API-et videresender så forespørselen til språkmodellen, som genererer et svar (respons). Dette svaret sendes tilbake via API-et og vises til brukeren.
-
-
-### Bruk av funksjonskall i prosjektet
-I dette prosjektet blir funksjonskall brukt sammen med Chuck Norris-API-et. Dette er satt opp for å få en generell forståelse av hvordan funksjonskall skal konfigureres i Mistral. Løsningen er implementert i et Python-script som jeg laget for å teste hvordan dette kan gjennomføres i praksis. Deretter rettet jeg løsningen mot selve agenten som skulle ha funksjonskallet, og har begynt å implementere det der. 
 
 
 
