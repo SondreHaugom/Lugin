@@ -232,7 +232,7 @@
         </h1>
         <select title="Velg agent" class="select-btn" name="" id="">
             <option value="Ollama">Ollama</option>
-            <option value="Openai">ChatGPT-lite</option>
+            <option value="Openai">ChatGPT-5.4</option>
         </select>
         <div class="userData">
         </div>
@@ -252,7 +252,7 @@
             <ul class="chatbox">
             </ul>
         </div>
-        <p class="appVersjon">v0.7</p>
+        <p class="appVersjon">v0.8</p>
     {/if}</main>
 
 <style>

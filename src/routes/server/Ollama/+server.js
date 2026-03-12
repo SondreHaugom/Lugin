@@ -7,11 +7,20 @@ const ollama = new Ollama({
     headers: {'Authorization': 'Bearer ' + env.OLLAMA_API_KEY}
 })
 
+if (!env.OLLAMA_API_KEY) {
+    console.error("OLLAMA_API_KEY is not set in environment variables.");
+    throw new Error("OLLAMA_API_KEY is required");
+}
+
 /** @type {import('./$types').requestHandler} */
 
 export async function POST({ request}) {
     try {
         const { message, conversationHistory = [] } = await request.json();
+
+        if (!message) {
+            return json({ error: 'Message is required' }, { status: 400 });
+        }
 
         const MAX_MSGS = 8
         const trimmedHistory = conversationHistory.slice(-MAX_MSGS); // Behold kun de siste MAX_MSGS meldingene
@@ -19,7 +28,7 @@ export async function POST({ request}) {
         trimmedHistory.push({ role: 'user', content: message });
         
         const respons = await ollama.chat({
-            model: 'ministral-3:3b-cloud',
+            model: 'ministral-3:14b-cloud',
             
             messages: [
                 {
