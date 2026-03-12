@@ -1,5 +1,5 @@
 ###
- Lugin Halvårsvurdering 
+ Lugin
 
 Min helt egen KI-tjeneste, basert på min halvårsvurdering. 
 
