@@ -252,7 +252,7 @@
             <ul class="chatbox">
             </ul>
         </div>
-        <p class="appVersjon">v0.8</p>
+        <p class="appVersjon">v0.9</p>
     {/if}</main>
 
 <style>

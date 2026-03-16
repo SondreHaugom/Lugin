@@ -55,7 +55,6 @@
 }
 
 
-
 .user_input {
     width: 92%;
     margin-left: 5px;
