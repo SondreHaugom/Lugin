@@ -23,7 +23,7 @@ export const speakMessage = (message) => {
     if (voice) {
         utterance.voice = voice;
     }
-    
+    /*
     document.addEventListener('keydown', (event) => {
         if (event.key === 'm' || event.key === 'M') {
             window.speechSynthesis.cancel();
@@ -44,6 +44,7 @@ export const speakMessage = (message) => {
             console.log("Tale gjenopptatt");
         }
     });
+    */
 
     window.speechSynthesis.speak(utterance);
     console.log("Tale startet");
