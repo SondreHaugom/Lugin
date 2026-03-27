@@ -22,6 +22,8 @@
 
 
 
+
+
     // Funksjon for å håndtere vellykket innlogging
     function handleSuccessfulLogin() {
         isLoggedIn = true;
