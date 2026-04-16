@@ -1,4 +1,4 @@
-import { randomID } from './randomID.js';
+
 // Denne funksjonen sender en melding til den valgte agenten og returnerer både svaret og response ID
 export const selectAgent = async (message, agentType, systemInstruks = "", previousResponseId = null) => {
     // Bestem endpoint basert på agentType
@@ -31,13 +31,15 @@ export const selectAgent = async (message, agentType, systemInstruks = "", previ
     // Oppretter en payload variabel for å håndtere både OpenAI og MistralAI svar, og returnerer både svaret og response ID
     const payload = await response.json();
 
-
     console.log(`Full payload from ${agentType}:`, JSON.stringify(payload, null, 2));
 
+    console.log('payload.choices:', payload.choices);
+    console.log('payload.choices?.[0]?.message?.content:', payload.choices?.[0]?.message?.content);
     // Håndterer både OpenAI og MistralAI svar, og returnerer både svaret og response ID
-    const raw = payload.randomID?.response ??
+    const raw = payload.response ??
         payload.choices?.[0]?.message?.content ?? '';
 
+        console.log('Extracted raw response:', raw);
     // Returner både svar og response ID
     return {
         response: raw || 'Beklager, ingen respons mottatt.',
