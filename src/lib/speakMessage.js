@@ -23,14 +23,14 @@ export const speakMessage = (message) => {
     if (voice) {
         utterance.voice = voice;
     }
-    /*
+
     document.addEventListener('keydown', (event) => {
-        if (event.key === 'm' || event.key === 'M') {
+        if (event.key.trim().toLowerCase() === 'm') {
             window.speechSynthesis.cancel();
             console.log("Tale avbrutt");
         }
     });
-
+/*
     document.addEventListener('keydown', (event) => {
         if (event.key === 'p' || event.key === 'P') {
             window.speechSynthesis.pause();
@@ -44,7 +44,7 @@ export const speakMessage = (message) => {
             console.log("Tale gjenopptatt");
         }
     });
-    */
+*/
 
     window.speechSynthesis.speak(utterance);
     console.log("Tale startet");

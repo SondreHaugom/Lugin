@@ -32,9 +32,7 @@ export const selectAgent = async (message, agentType, systemInstruks = "", previ
     const payload = await response.json();
 
     console.log(`Full payload from ${agentType}:`, JSON.stringify(payload, null, 2));
-
-    console.log('payload.choices:', payload.choices);
-    console.log('payload.choices?.[0]?.message?.content:', payload.choices?.[0]?.message?.content);
+    
     // Håndterer både OpenAI og MistralAI svar, og returnerer både svaret og response ID
     const raw = payload.response ??
         payload.choices?.[0]?.message?.content ?? '';

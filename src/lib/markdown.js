@@ -6,10 +6,22 @@ import markdownit from "markdown-it"
 import "highlight.js/styles/a11y-light.min.css"
 import "katex/dist/katex.min.css"
 import markdownKatex from "@vscode/markdown-it-katex"
+import { text } from "@sveltejs/kit"
 
 // funksjoen for å pakke inn kode i pre og code tagger for riktig formatering i markdown
-export const wrapInPreCode = (code) => {
-    return `${code}`
+export const wrapInPreCode = (code, lang = '', rawCode = '') => {
+    const escapeRaw = (rawCode || code)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    return `
+        <div class="code-container" style="position:relative;">
+        <pre data-raw="${escapeRaw}"><code class="hljs ${lang}">${code}</code></pre>
+        <button class="copy-button" style="position:absolute; top:5px; right:5px; padding:5px 10px; font-size:12px; cursor:pointer;" onclick="navigator.clipboard.writeText('${escapeRaw}').then(() => { alert('Kopiert til utklippstavlen!'); }).catch(err => { alert('Feil ved kopiering: ' + err); });">Kopier</button>  
+    </div>`;
+    
+
 };
 
 // Funksjoen for generell markdown rendering, som også håndterer syntaksutheving for kodeblokker og KaTeX for matematiske uttrykk
@@ -17,7 +29,7 @@ export const md = markdownit({
     highlight: (str, lang) => {
         if (lang && hljs.getLanguage(lang)) {
             try {
-                return wrapInPreCode(hljs.highlight(str, { language: lang, ignoreIllegals: true }).value)
+                return wrapInPreCode(hljs.highlight(str, { language: lang, ignoreIllegals: true }).value, lang, str)
             } catch (err) {
                 console.error("Error highlighting code:", err) 
 
@@ -53,3 +65,6 @@ export const renderMarkdown = (markdownText) => {
     const textWithKaTex = addKaTexToMathStrings(markdownText)
     return md.render(textWithKaTex)
 };
+
+
+
