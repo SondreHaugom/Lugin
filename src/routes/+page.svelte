@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import { selectAgent} from "../lib/selectAgent.js";
   import { marked } from 'marked';
-  import { md, addKaTexToMathStrings, wrapInPreCode } from "../lib/markdown.js";
+  import {renderMarkdown} from "../lib/markdown.js";
   import '$lib/global.css';
   import AgentInnstruks from './components/agentInnstruks.svelte';
   import UserInput from './components/userInput.svelte';
@@ -12,6 +12,7 @@
   import TypingDots from './components/TypingDots.svelte';
   import { scrollToTop } from '$lib/scrollToTop.js';
   import { speakMessage } from '$lib/speakMessage.js';
+  import Layout from "./+layout.svelte";
   
     // deklarerer globale variabler
     let chatbox, userInput, sendBtn, resetBtn, toggleBtn, selectBtn;
@@ -21,11 +22,13 @@
     let showTypingDots = false;
 
 
+    
 
     // Funksjon for å håndtere vellykket innlogging
     function handleSuccessfulLogin() {
         isLoggedIn = true;
     }
+    
     
 
     // Store response ID per agent
@@ -60,7 +63,7 @@
 
 
     const streamText = (element, text, speed = 2) => {
-        const markdownText = md.render(addKaTexToMathStrings(wrapInPreCode(text)));
+        const markdownText = renderMarkdown(text);
         // definerer en indeks for å holde styr på posisjonen i teksten
         let index = 0;
         // tømmer innholdet i elementet før streaming
@@ -107,7 +110,7 @@
             
         } else if (className === 'chat_incoming') {
             // bruker markdown-funksjonen for å formatere botens svar
-            messageDiv.innerHTML = md.render(addKaTexToMathStrings(wrapInPreCode(message)));
+            messageDiv.innerHTML = renderMarkdown(message);
         } else {
             messageDiv.textContent = message;
         }
@@ -252,7 +255,7 @@
             <ul class="chatbox">
             </ul>
         </div>
-        <p class="appVersjon">v0.8</p>
+        <p class="appVersjon">v0.9</p>
     {/if}</main>
 
 <style>

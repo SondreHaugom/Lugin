@@ -23,14 +23,29 @@ export const speakMessage = (message) => {
     if (voice) {
         utterance.voice = voice;
     }
-    
+
     document.addEventListener('keydown', (event) => {
-        if (event.key === 'm' || event.key === 'M') {
+        if (event.key.trim().toLowerCase() === 'm') {
             window.speechSynthesis.cancel();
             console.log("Tale avbrutt");
         }
     });
-    
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'p' || event.key === 'P') {
+            window.speechSynthesis.pause();
+            console.log("Tale satt på pause");
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'r' || event.key === 'R') {
+            window.speechSynthesis.resume();
+            console.log("Tale gjenopptatt");
+        }
+    });
+
+
     window.speechSynthesis.speak(utterance);
     console.log("Tale startet");
 
