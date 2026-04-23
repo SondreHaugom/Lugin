@@ -163,8 +163,6 @@
 
 
 
-
-
     onMount((async () => {
         chatbox = document.querySelector(".chatbox");
         userInput = document.querySelector(".user_input");
@@ -183,7 +181,11 @@
         if (resetBtn) {
             resetBtn.addEventListener("click", () => {
             let userChoice = confirm("Er du sikker på at du vil starte en ny samtale? Dette vil slette all tidligere samtalehistorikk.");
-            window.location.reload();
+            if (userChoice) {
+                window.location.reload();
+            } else {
+                alert("Samtalehistorikken er bevart.");
+            }
         });
         }
 
