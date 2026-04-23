@@ -262,15 +262,16 @@
 
 
 
-
 main {
     background:
   radial-gradient(circle at 25% 20%, rgba(41,74,149,0.18) 0%, rgba(41,74,149,0) 60%),
   linear-gradient(135deg, #181b28 0%, #14161b 55%, #23272f 100%);
-    width: 100%;
+    width: 100vw;
     height: 100vh;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
     font-family: "Courier New", Courier, monospace;
 }
 h1 {
