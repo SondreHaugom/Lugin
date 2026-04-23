@@ -183,19 +183,7 @@
         if (resetBtn) {
             resetBtn.addEventListener("click", () => {
             let userChoice = confirm("Er du sikker på at du vil starte en ny samtale? Dette vil slette all tidligere samtalehistorikk.");
-            if (userChoice) {
-                agentResponseIds = {
-                    'Openai': null,
-                    'Ollama': null
-
-            };
-                agentResponseIDHistory = {
-                    'Openai': [],
-                    'Ollama': [],
-            };
-            chatbox.innerHTML = '';
-                alert("Ny samtale startet!");
-            }
+            window.location.reload();
         });
         }
 
@@ -255,7 +243,7 @@
             <ul class="chatbox">
             </ul>
         </div>
-        <p class="appVersjon">v0.9</p>
+
     {/if}</main>
 
 <style>
@@ -279,14 +267,6 @@ h1 {
     margin-top: 10px;
     margin-bottom: 20px;
     color: white;
-}
-.appVersjon {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    color: #545454;
-    font-size: 15px;
-    margin-right: 20px;
 }
 .sidebar {
     position: fixed;
@@ -569,11 +549,7 @@ h1 {
     .select-btn {
         margin-top: 80px;
     }
-    .appVersjon {
-        bottom: 80px;
-        right: 5px;
-        font-size: 12px;
-    }
+
 
 
 }
@@ -607,11 +583,7 @@ h1 {
 
     
         }
-        .appVersjon {
-            bottom: 20px;
-            right: 10px;
-            font-size: 14px;
-        } 
+
 }
 
 @media (min-width: 1000px) and (max-width: 1200px) {

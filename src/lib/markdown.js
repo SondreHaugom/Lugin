@@ -20,7 +20,6 @@ export const wrapInPreCode = (code, lang = '', rawCode = '') => {
         <pre data-raw="${escapeRaw}"><code class="hljs ${lang}">${code}</code></pre>
         <button class="copy-button" style="position:absolute; top:5px; right:5px; padding:5px 10px; font-size:12px; cursor:pointer;" onclick="navigator.clipboard.writeText('${escapeRaw}').then(() => { alert('Kopiert til utklippstavlen!'); }).catch(err => { alert('Feil ved kopiering: ' + err); });">Kopier</button>  
     </div>`;
-    
 
 };
 
