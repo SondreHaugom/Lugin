@@ -34,15 +34,16 @@
     // Store response ID per agent
     let agentResponseIds = {
         'Openai': null,
-        'Ollama': []
+        'Ollama': [],
+        'QuizAgent': null
 
 
     };
 
     let agentResponseIDHistory = {
         'Openai': [],
-        'Ollama': []
-
+        'Ollama': [],
+        'QuizAgent': []
     };
 
     // variabel for å spore menyens tilstand
@@ -59,6 +60,8 @@
 
 
     }
+
+
 
 
 
@@ -163,8 +166,6 @@
 
 
 
-
-
     onMount((async () => {
         chatbox = document.querySelector(".chatbox");
         userInput = document.querySelector(".user_input");
@@ -184,17 +185,9 @@
             resetBtn.addEventListener("click", () => {
             let userChoice = confirm("Er du sikker på at du vil starte en ny samtale? Dette vil slette all tidligere samtalehistorikk.");
             if (userChoice) {
-                agentResponseIds = {
-                    'Openai': null,
-                    'Ollama': null
-
-            };
-                agentResponseIDHistory = {
-                    'Openai': [],
-                    'Ollama': [],
-            };
-            chatbox.innerHTML = '';
-                alert("Ny samtale startet!");
+                window.location.reload();
+            } else {
+                alert("Samtalehistorikken er bevart.");
             }
         });
         }
@@ -236,6 +229,7 @@
         <select title="Velg agent" class="select-btn" name="" id="">
             <option value="Ollama">Ollama</option>
             <option value="Openai">ChatGPT-5.4</option>
+            <option value="QuizAgent">QuizAgent</option>
         </select>
         <div class="userData">
         </div>
@@ -255,11 +249,10 @@
             <ul class="chatbox">
             </ul>
         </div>
-        <p class="appVersjon">v0.9</p>
+
     {/if}</main>
 
 <style>
-
 
 
 
@@ -267,10 +260,12 @@ main {
     background:
   radial-gradient(circle at 25% 20%, rgba(41,74,149,0.18) 0%, rgba(41,74,149,0) 60%),
   linear-gradient(135deg, #181b28 0%, #14161b 55%, #23272f 100%);
-    width: 100%;
+    width: 100vw;
     height: 100vh;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
     font-family: "Courier New", Courier, monospace;
 }
 h1 {
@@ -278,14 +273,6 @@ h1 {
     margin-top: 10px;
     margin-bottom: 20px;
     color: white;
-}
-.appVersjon {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    color: #545454;
-    font-size: 15px;
-    margin-right: 20px;
 }
 .sidebar {
     position: fixed;
@@ -568,11 +555,7 @@ h1 {
     .select-btn {
         margin-top: 80px;
     }
-    .appVersjon {
-        bottom: 80px;
-        right: 5px;
-        font-size: 12px;
-    }
+
 
 
 }
@@ -606,11 +589,7 @@ h1 {
 
     
         }
-        .appVersjon {
-            bottom: 20px;
-            right: 10px;
-            font-size: 14px;
-        } 
+
 }
 
 @media (min-width: 1000px) and (max-width: 1200px) {

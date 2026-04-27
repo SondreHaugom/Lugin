@@ -27,23 +27,20 @@ export const speakMessage = (message) => {
     document.addEventListener('keydown', (event) => {
         if (event.key.trim().toLowerCase() === 'm') {
             window.speechSynthesis.cancel();
-            console.log("Tale avbrutt");
-        }
-    });
+            console.log("Speech cancelled");
 
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'p' || event.key === 'P') {
+        } else if (event.key.trim().toLowerCase() === 'p') {
             window.speechSynthesis.pause();
-            console.log("Tale satt på pause");
-        }
-    });
+            console.log("Speech paused");
 
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'r' || event.key === 'R') {
+        } else if (event.key.trim().toLowerCase() === 'r') {
             window.speechSynthesis.resume();
-            console.log("Tale gjenopptatt");
+            console.log("Speech resumed");
+        } else {
+            error(400, "Invalid key pressed. Use 'M' to stop, 'P' to pause, and 'R' to resume speech.");
         }
-    });
+    })
+
 
 
     window.speechSynthesis.speak(utterance);
