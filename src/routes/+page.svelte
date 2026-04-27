@@ -63,6 +63,8 @@
 
 
 
+
+
     const streamText = (element, text, speed = 2) => {
         const markdownText = renderMarkdown(text);
         // definerer en indeks for å holde styr på posisjonen i teksten
