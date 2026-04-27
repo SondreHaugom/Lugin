@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import { selectAgent} from "../lib/selectAgent.js";
   import { marked } from 'marked';
-  import {renderMarkdown} from "../lib/markdown.js";
+  import {renderMarkdown, initCopyButtons} from "../lib/markdown.js";
   import '$lib/global.css';
   import AgentInnstruks from './components/agentInnstruks.svelte';
   import UserInput from './components/userInput.svelte';
@@ -171,6 +171,7 @@
 
 
     onMount((async () => {
+        initCopyButtons();
         chatbox = document.querySelector(".chatbox");
         userInput = document.querySelector(".user_input");
         sendBtn = document.querySelector(".sendBtn");

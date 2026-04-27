@@ -16,11 +16,30 @@ export const wrapInPreCode = (code, lang = '', rawCode = '') => {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
     return `
-        <div class="code-container" style="position:relative;" background-color:#f5f5f5; border:1px solid #ddd; border-radius:4px; padding:10px; margin:10px 0;">
+        <div class="code-container">
         <pre data-raw="${escapeRaw}"><code class="hljs ${lang}">${code}</code></pre>
-        <button class="copy-button" style="position:absolute; top:5px; right:5px; padding:5px 10px; font-size:12px; cursor:pointer;" onclick="navigator.clipboard.writeText('${escapeRaw}').then(() => { alert('Kopiert til utklippstavlen!'); }).catch(err => { alert('Feil ved kopiering: ' + err); });">Kopier</button>  
+        <button class="copy-button">Kopier</button>  
     </div>`;
 
+};
+
+// Delegert event listener for kopieringsknapper – fanger klikk på alle .copy-button uansett når de ble lagt til i DOM
+export const initCopyButtons = () => {
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.copy-button');
+        if (!btn) return;
+        const pre = btn.parentElement?.querySelector('pre[data-raw]');
+        if (!pre) return;
+        const raw = pre.getAttribute('data-raw')
+            .replace(/&amp;/g, '&')
+            .replace(/&quot;/g, '"')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>');
+        navigator.clipboard.writeText(raw).then(() => {
+            btn.textContent = 'Kopiert!';
+            setTimeout(() => btn.textContent = 'Kopier', 2000);
+        });
+    });
 };
 
 // Funksjoen for generell markdown rendering, som også håndterer syntaksutheving for kodeblokker og KaTeX for matematiske uttrykk
