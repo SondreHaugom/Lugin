@@ -12,7 +12,7 @@ const vector_store_id = env.VECTOR_STORE_ID;
 
 // Oppretter en OpenAI-klient med API-nøkkelen
 const client = new OpenAI({
-    apiKey: openai_api_key2
+    apiKey: openai_api_key
 });
 
 if (!openai_api_key) {
