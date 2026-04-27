@@ -34,15 +34,16 @@
     // Store response ID per agent
     let agentResponseIds = {
         'Openai': null,
-        'Ollama': []
+        'Ollama': [],
+        'QuizAgent': null
 
 
     };
 
     let agentResponseIDHistory = {
         'Openai': [],
-        'Ollama': []
-
+        'Ollama': [],
+        'QuizAgent': []
     };
 
     // variabel for å spore menyens tilstand
@@ -226,6 +227,7 @@
         <select title="Velg agent" class="select-btn" name="" id="">
             <option value="Ollama">Ollama</option>
             <option value="Openai">ChatGPT-5.4</option>
+            <option value="QuizAgent">QuizAgent</option>
         </select>
         <div class="userData">
         </div>
