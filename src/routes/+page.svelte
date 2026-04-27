@@ -106,6 +106,10 @@
         // henter meldingsdiven
         const messageDiv = chatLi.querySelector(className === 'chat_incoming' ? '.bot_message' : '.user_message');
 
+
+      
+        
+        
     
         if (isStreaming && className === 'chat_incoming') {
             streamText(messageDiv, message);
