@@ -113,7 +113,13 @@
     
         if (isStreaming && className === 'chat_incoming') {
             streamText(messageDiv, message);
-            speakMessage(message);
+            if (streamText) {
+                speakMessage(message);
+                console.log("TTS aktivert og melding spilles av.");
+            } else{
+                console.log("TTS feilet eller er deaktivert.");
+            }
+
             
         } else if (className === 'chat_incoming') {
             // bruker markdown-funksjonen for å formatere botens svar
