@@ -244,6 +244,10 @@
         </select>
         <div class="userData">
         </div>
+        
+        <div class="settings-container">
+        <button class="settings-btn" type="button">⚙️</button>
+        </div>
     </div>
 
     {#if !isLoggedIn}
@@ -260,7 +264,6 @@
             <ul class="chatbox">
             </ul>
         </div>
-
     {/if}</main>
 
 <style>
@@ -518,6 +521,12 @@ h1 {
         display: block;
 }
 
+.settings-container {
+    position: absolute;
+    bottom: 20px;
+    left: 10%;
+    transform: translateX(-50%);
+}
 
 @media (min-width: 300px) and (max-width: 600px) {
     .chatbot_wrapper {
