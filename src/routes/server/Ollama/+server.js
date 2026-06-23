@@ -28,7 +28,7 @@ export async function POST({ request}) {
         trimmedHistory.push({ role: 'user', content: message });
         
         const respons = await ollama.chat({
-            model: 'ministral-3:14b-cloud',
+            model: 'ministral-3:8b-cloud     ',
             
             messages: [
                 {

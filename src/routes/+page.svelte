@@ -7,9 +7,10 @@
   import '$lib/global.css';
   import AgentInnstruks from './components/agentInnstruks.svelte';
   import UserInput from './components/userInput.svelte';
-  import Autentisering from "./components/autentisering.svelte";   
+  import Autentisering from "./components/autentisering.svelte";  
   import { integrationsFromJSON } from "@mistralai/mistralai/models/components/completionjobout.js";
   import TypingDots from './components/TypingDots.svelte';
+   import Settings from "./components/settings.svelte"; 
   import { scrollToTop } from '$lib/scrollToTop.js';
   import { speakMessage } from '$lib/speakMessage.js';
   import Layout from "./+layout.svelte";
@@ -244,10 +245,8 @@
         </select>
         <div class="userData">
         </div>
+        <Settings />
         
-        <div class="settings-container">
-        <button class="settings-btn" type="button">⚙️</button>
-        </div>
     </div>
 
     {#if !isLoggedIn}
