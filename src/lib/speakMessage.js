@@ -10,7 +10,7 @@ const speakWithoutMarkdown = (markdown) => {
         .trim();
 }
 
-
+// funksjon som bruker web speech API for å lese opp respons fra chatten. Bruker Microsoft Sonia Online hvis tilgjengelig, ellers standard engelsk stemme.
 export const speakMessage = (message) => {
     let plainTextMessage = speakWithoutMarkdown(message); // Fjerner markdown for tale
     const utterance = new SpeechSynthesisUtterance(plainTextMessage);
@@ -37,7 +37,7 @@ export const speakMessage = (message) => {
             window.speechSynthesis.resume();
             console.log("Speech resumed");
         } else {
-            error(400, "Invalid key pressed. Use 'M' to stop, 'P' to pause, and 'R' to resume speech.");
+            console.log("Du skrive melding");
         }
     })
 

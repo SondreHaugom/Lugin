@@ -7,9 +7,10 @@
   import '$lib/global.css';
   import AgentInnstruks from './components/agentInnstruks.svelte';
   import UserInput from './components/userInput.svelte';
-  import Autentisering from "./components/autentisering.svelte";   
+  import Autentisering from "./components/autentisering.svelte";  
   import { integrationsFromJSON } from "@mistralai/mistralai/models/components/completionjobout.js";
   import TypingDots from './components/TypingDots.svelte';
+   import Settings from "./components/settings.svelte"; 
   import { scrollToTop } from '$lib/scrollToTop.js';
   import { speakMessage } from '$lib/speakMessage.js';
   import Layout from "./+layout.svelte";
@@ -113,7 +114,13 @@
     
         if (isStreaming && className === 'chat_incoming') {
             streamText(messageDiv, message);
-            speakMessage(message);
+            if (streamText) {
+                speakMessage(message);
+                console.log("TTS aktivert og melding spilles av.");
+            } else{
+                console.log("TTS feilet eller er deaktivert.");
+            }
+
             
         } else if (className === 'chat_incoming') {
             // bruker markdown-funksjonen for å formatere botens svar
@@ -238,6 +245,8 @@
         </select>
         <div class="userData">
         </div>
+        <Settings />
+        
     </div>
 
     {#if !isLoggedIn}
@@ -254,7 +263,6 @@
             <ul class="chatbox">
             </ul>
         </div>
-
     {/if}</main>
 
 <style>
@@ -512,6 +520,12 @@ h1 {
         display: block;
 }
 
+.settings-container {
+    position: absolute;
+    bottom: 20px;
+    left: 10%;
+    transform: translateX(-50%);
+}
 
 @media (min-width: 300px) and (max-width: 600px) {
     .chatbot_wrapper {
