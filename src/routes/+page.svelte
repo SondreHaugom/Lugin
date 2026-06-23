@@ -240,7 +240,6 @@
         </h1>
         <select title="Velg agent" class="select-btn" name="" id="">
             <option value="Ollama">Ollama</option>
-            <option value="Openai">ChatGPT-5.4</option>
             <option value="QuizAgent">QuizAgent</option>
         </select>
         <div class="userData">

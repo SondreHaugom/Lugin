@@ -3,7 +3,6 @@
 export const selectAgent = async (message, agentType, systemInstruks = "", previousResponseId = null) => {
     // Bestem endpoint basert på agentType
     let endpoint = '/server/Ollama';
-    if (agentType === 'Openai') endpoint = '/server/Openai';
     if (agentType === 'QuizAgent') endpoint = '/server/QuizAgent';
 
 
