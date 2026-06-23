@@ -6,16 +6,16 @@ import { quizAgentSystemInstruks as defaultSystemInstruks } from '$lib/openAISys
 // Bruk systemInstruks fra systeminstruks.js, eller fallback til standardverdi
 
 // Hent OpenAI API-nøkkel fra miljøvariabler
-const openai_api_key = env.TFK_OPENAI_API_KEY;
+const tfk_openai_api_key = env.TFK_OPENAI_API_KEY;
 
 const vector_store_id = env.VECTOR_STORE_ID; 
 
 // Oppretter en OpenAI-klient med API-nøkkelen
 const client = new OpenAI({
-    apiKey: openai_api_key
+    apiKey: tfk_openai_api_key
 });
 
-if (!openai_api_key) {
+if (!tfk_openai_api_key) {
     console.error("TFK_OPENAI_API_KEY is not set in environment variables.");
     throw new Error("TFK_OPENAI_API_KEY is required");
 }
